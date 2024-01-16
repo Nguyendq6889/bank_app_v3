@@ -1,4 +1,4 @@
-import 'package:bank_app_v2/app_assets/app_styles.dart';
+import 'package:bank_app_v3/app_assets/app_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

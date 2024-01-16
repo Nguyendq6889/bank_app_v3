@@ -1,6 +1,6 @@
 {
-    "name": "bank_app_v2",
-    "short_name": "bank_app_v2",
+    "name": "bank_app_v3",
+    "short_name": "bank_app_v3",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

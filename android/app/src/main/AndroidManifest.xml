@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bank_app_v2">
+    package="com.example.bank_app_v3">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
    <application
-        android:label="Bank App v2"
+        android:label="Bank App v3"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
