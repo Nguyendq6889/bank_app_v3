@@ -8,7 +8,7 @@ class LanguageOptionWidget extends StatelessWidget {
   final String label;
   final bool? selected;
   final VoidCallback? onTap;
-  const LanguageOptionWidget({Key? key, required this.icon, required this.label, this.selected, this.onTap}) : super(key: key);
+  const LanguageOptionWidget({super.key, required this.icon, required this.label, this.selected, this.onTap});
 
   @override
   Widget build(BuildContext context) {

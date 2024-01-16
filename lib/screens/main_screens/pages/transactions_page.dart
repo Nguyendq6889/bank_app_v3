@@ -8,7 +8,7 @@ import '../../../widgets/common_widget.dart';
 import '../../transaction_detail_screen.dart';
 
 class TransactionsPage extends StatefulWidget {
-  const TransactionsPage({Key? key}) : super(key: key);
+  const TransactionsPage({super.key});
 
   @override
   State<TransactionsPage> createState() => _TransactionsPageState();

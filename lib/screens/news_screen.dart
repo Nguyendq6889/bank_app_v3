@@ -7,7 +7,7 @@ import '../app_assets/app_images.dart';
 import '../app_assets/app_styles.dart';
 
 class NewsScreen extends StatefulWidget {
-  const NewsScreen({Key? key}) : super(key: key);
+  const NewsScreen({super.key});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();

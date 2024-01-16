@@ -6,7 +6,7 @@ import '../app_assets/app_icons.dart';
 import '../app_assets/app_styles.dart';
 
 class TransactionDetailScreen extends StatelessWidget {
-  const TransactionDetailScreen({Key? key}) : super(key: key);
+  const TransactionDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import '../../widgets/common_widget.dart';
 import '../../widgets/main_button_widget.dart';
 
 class InterbankTransferScreen extends StatefulWidget {
-  const InterbankTransferScreen({Key? key}) : super(key: key);
+  const InterbankTransferScreen({super.key});
 
   @override
   State<InterbankTransferScreen> createState() => _InterbankTransferScreenState();

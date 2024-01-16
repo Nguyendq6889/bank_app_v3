@@ -8,7 +8,7 @@ class FeatureWidget extends StatelessWidget {
   final String icon;
   final double? iconWidth;
   final VoidCallback? onTap;
-  const FeatureWidget({Key? key, required this.title, required this.icon, this.iconWidth, this.onTap}) : super(key: key);
+  const FeatureWidget({super.key, required this.title, required this.icon, this.iconWidth, this.onTap});
 
   @override
   Widget build(BuildContext context) {

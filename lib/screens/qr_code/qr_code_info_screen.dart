@@ -12,8 +12,7 @@ import '../../widgets/main_button_widget.dart';
 
 class QRCodeInfoScreen extends StatelessWidget {
   final Barcode result;
-  const QRCodeInfoScreen({Key? key, required this.result}) : super(key: key);
-  // const QRCodeInfoScreen({Key? key}) : super(key: key);
+  const QRCodeInfoScreen({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {

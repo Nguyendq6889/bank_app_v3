@@ -5,7 +5,7 @@ class MainButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final double? width;
-  const MainButtonWidget({Key? key, required this.text, required this.onTap, this.width}) : super(key: key);
+  const MainButtonWidget({super.key, required this.text, required this.onTap, this.width});
 
   @override
   Widget build(BuildContext context) {

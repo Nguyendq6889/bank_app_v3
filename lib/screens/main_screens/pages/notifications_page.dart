@@ -6,7 +6,7 @@ import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_styles.dart';
 
 class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({Key? key}) : super(key: key);
+  const NotificationsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ import '../models/user_info/user_info_model.dart';
 import '../widgets/error_message_widget.dart';
 
 class UserInfoScreen extends StatefulWidget {
-  const UserInfoScreen({Key? key}) : super(key: key);
+  const UserInfoScreen({super.key});
 
   @override
   State<UserInfoScreen> createState() => _UserInfoScreenState();

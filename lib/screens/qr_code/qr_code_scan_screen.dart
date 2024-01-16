@@ -9,7 +9,7 @@ import '../../app_assets/app_styles.dart';
 import 'qr_code_info_screen.dart';
 
 class QRCodeScanScreen extends StatefulWidget {
-  const QRCodeScanScreen({Key? key}) : super(key: key);
+  const QRCodeScanScreen({super.key});
 
   @override
   State<QRCodeScanScreen> createState() => _QRCodeScanScreenState();

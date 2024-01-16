@@ -8,7 +8,7 @@ import '../../widgets/feature_widget.dart';
 import 'interbank_transfer_screen.dart';
 
 class TransferScreen extends StatelessWidget {
-  const TransferScreen({Key? key}) : super(key: key);
+  const TransferScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

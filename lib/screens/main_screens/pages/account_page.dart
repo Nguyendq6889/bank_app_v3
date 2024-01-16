@@ -14,7 +14,7 @@ import '../../../widgets/language_option_widget.dart';
 import '../../user_info_screen.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({super.key});
 
   @override
   State<AccountPage> createState() => _AccountPageState();
