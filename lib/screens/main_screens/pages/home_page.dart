@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
+import '../../../modules/news/cubits/news_cubit.dart';
+import '../../../modules/news/repository/news_repo.dart';
 import '../../news_screen.dart';
 import '../../payment/payment_screen.dart';
 import '../../transfer/transfer_screen.dart';
@@ -231,7 +234,16 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const NewsScreen())),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                  MaterialPageRoute(builder: (BuildContext context) => BlocProvider(
+                                    create: (context) => NewsCubit(NewsRepo()),
+                                    child: const NewsScreen()
+                                  ),
+                                ),
+                              );
+                            },
                             child: Padding(
                               padding: const EdgeInsets.all(16),
                               child: Text(

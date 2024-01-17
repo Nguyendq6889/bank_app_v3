@@ -136,6 +136,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: 1.5,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline,
+                          decorationColor: Colors.white,
                         ),
                       ),
                     ),
