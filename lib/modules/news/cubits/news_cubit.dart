@@ -9,26 +9,34 @@ class NewsCubit extends Cubit<NewsState> {
   final NewsRepo _newsRepo;
   NewsCubit(this._newsRepo) : super(InitNewsState());
 
-  int page = 1;
-  List<NewsModel> listNews = [];
-  bool isFinish = false;
+  int _page = 1;
+  List<NewsModel> _listNews = [];
+  bool isLoading = false;
+  bool finishLoadMore = false;
+  bool hasErrorWhenLoadMore = false;
 
   Future<void> getListNews(int page, {bool? loadMore}) async {
-    // if(loadMore ?? false) LoadMoreState(listNews);
-    // if(loadMore ?? false) emit(LoadingNewsState());
+    isLoading = true;
+    // emit(LoadingNewsState());
     try {
       final response = await _newsRepo.getListNews(page);
       if(loadMore ?? false) {
-        if(response.listNews!.isEmpty) {
-          isFinish = true;
+        if(response.listNews == null) {
+          hasErrorWhenLoadMore = true;
+        } else if(response.listNews != null && response.listNews!.isEmpty) {
+          finishLoadMore = true;
         }
-        listNews.addAll(response.listNews ?? []);
-        // loadingMore = false;
-        emit(SuccessfulNewsState(listNews));
+        _listNews.addAll(response.listNews ?? []);
+        emit(SuccessfulNewsState(_listNews));
       } else {
-        listNews = response.listNews ?? [];
-        emit(SuccessfulNewsState(listNews));
+        if(response.listNews != null) {
+          _listNews = response.listNews!;
+          emit(SuccessfulNewsState(_listNews));
+        } else {
+          emit(ErrorNewsState('Gọi API bị null'));
+        }
       }
+      isLoading = false;
     } catch(error, stackTrace) {
       // if (kDebugMode) {
       //   print(error);
@@ -40,14 +48,11 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   Future<void> onLoadMore() async {
-    if (state is SuccessfulNewsState) {
-      /// Nếu như BE lỗi không xác định được isFinish thì không cho load nữa;
-      // bool isFinish = (state as NotificationHasData).isFinish ?? true;
-
-      if (!isFinish) {
-      page++;
-        await getListNews(page, loadMore: true);
-      }
+    // if(isLoading) return;
+    if (!finishLoadMore && !hasErrorWhenLoadMore) {
+      _page++;
+      await getListNews(_page, loadMore: true);
+      // isLoading = false;
     }
   }
 }

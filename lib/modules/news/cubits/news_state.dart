@@ -13,6 +13,5 @@ class ErrorNewsState extends NewsState {
 
 class SuccessfulNewsState extends NewsState {
   final List<NewsModel> listNews;
-  final bool? isFinish;
-  SuccessfulNewsState(this.listNews, {this.isFinish});
+  SuccessfulNewsState(this.listNews);
 }

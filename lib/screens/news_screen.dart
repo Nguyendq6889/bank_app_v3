@@ -2,7 +2,7 @@ import 'package:bank_app_v3/app_assets/app_colors.dart';
 import 'package:bank_app_v3/modules/news/cubits/news_state.dart';
 import 'package:bank_app_v3/modules/news/models/news_model.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +13,8 @@ import '../app_assets/app_styles.dart';
 import '../modules/news/cubits/news_cubit.dart';
 import '../widgets/error_message_widget.dart';
 import '../widgets/load_more_widget.dart';
+import '../widgets/loaded_all_data_widget.dart';
+import '../widgets/no_data_widget.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
@@ -22,26 +24,25 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  late final NewsCubit newsCubit;
+  late final NewsCubit _newsCubit;
   int _page = 1;
-  final PageController _bannerPageController = PageController(initialPage: 0);
-  late final ScrollController scrollController;
-
-  int _selectedBannerPage = 0;
+  final ScrollController _scrollController = ScrollController();
+  // final PageController _bannerPageController = PageController(initialPage: 0);
+  // int _selectedBannerPage = 0;
 
   @override
   void initState() {
-    scrollController = ScrollController()..addListener(_loadMore);
+    _scrollController.addListener(_loadMore);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      newsCubit = BlocProvider.of<NewsCubit>(context);
-      newsCubit.getListNews(_page);
+      _newsCubit = BlocProvider.of<NewsCubit>(context);
+      _newsCubit.getListNews(_page);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -69,33 +70,33 @@ class _NewsScreenState extends State<NewsScreen> {
         builder: (context, state) {
           if(state is InitNewsState || state is LoadingNewsState) {
             context.loaderOverlay.show();
-            // return const LoadingWidget();
           } else if(state is ErrorNewsState) {
             context.loaderOverlay.hide();
+            if(kDebugMode) print(state.message);
             return const ErrorMessageWidget();    // ErrorMessageWidget in lib/widgets/error_message_widget.dart file.
           } else if(state is SuccessfulNewsState) {
             context.loaderOverlay.hide();
             return RefreshIndicator(
               onRefresh: _onRefresh,
               color: AppColors.primaryColor,
-              child: state.listNews.isEmpty ? noDataWidget() : Padding(
+              child: state.listNews.isEmpty ? const NoDataWidget(message: 'Không có tin tức nào.') : Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        controller: scrollController,
+                        controller: _scrollController,
                         itemCount: state.listNews.length + 1,
                         itemBuilder: (BuildContext context, int index) {
                           if(index < state.listNews.length) {
                             return _recentNewsWidget(AppImages.imageRecentNews1, state.listNews[index]);
                           } else {
-                            return newsCubit.isFinish ? const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Text('Không còn tin tức nào'),
-                              ),
-                            ) : const LoadMoreWidget();
+                            if(_newsCubit.hasErrorWhenLoadMore){
+                              return const ErrorMessageWidget();
+                            }
+                            return _newsCubit.finishLoadMore
+                                ? const LoadedAllDataWidget(message: 'Không còn tin tức nào nữa.')
+                                : const LoadMoreWidget();
                           }
                         }
                       ),
@@ -112,57 +113,62 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   Future<void> _onRefresh() async {
-    await newsCubit.getListNews(1);
+    await _newsCubit.getListNews(1);
   }
 
-  Future<bool> _loadMore() async {
-    // print('extentAfter ====================== ${scrollController.position.extentAfter}');
-    // print('maxScrollExtent ====================== ${scrollController.position.maxScrollExtent}');
-    // print('offset ====================== ${scrollController.offset}');
-    if (scrollController.position.maxScrollExtent == scrollController.offset) {
+  Future<void> _loadMore() async {
+    // if (!_scrollController.hasClients) return;
+    // flutter: extentAfter ====================== 358.7333333333333
+    // flutter: maxScrollExtent ====================== 359.9        279         149
+    // flutter: offset ====================== 1.1666666666666667
+    print('extentAfter ====================== ${_scrollController.position.extentAfter}');
+    print('maxScrollExtent ====================== ${_scrollController.position.maxScrollExtent}');
+    print('offset ====================== ${_scrollController.offset}');
+    // if(_scrollController.position.maxScrollExtent == _scrollController.offset) {
+    if(_scrollController.position.extentAfter < 200) {
+      if(_newsCubit.isLoading) return;
       _page++;
-      await newsCubit.onLoadMore();
+      await _newsCubit.onLoadMore();
     }
-    return true;
   }
 
-  Widget _banner(String image, Size size) {
-    return Column(
-      children: [
-        Container(
-          height: size.height * 26.108 / 100,
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
-              image: AssetImage(image), fit: BoxFit.cover,
-            )
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
-          child: Text(
-            'news_title'.tr(),
-            style: AppStyles.textButtonBlack
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: Row(
-            children: [
-              SvgPicture.asset(AppIcons.iconClock),
-              const SizedBox(width: 8),
-              Text(
-                "09:00 - 03/11/2023",
-                style: AppStyles.textFeatures.copyWith(color: const Color(0xffA1A1A1)),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _banner(String image, Size size) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         height: size.height * 26.108 / 100,
+  //         width: double.infinity,
+  //         margin: const EdgeInsets.symmetric(horizontal: 16),
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(16),
+  //           image: DecorationImage(
+  //             image: AssetImage(image), fit: BoxFit.cover,
+  //           )
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
+  //         child: Text(
+  //           'news_title'.tr(),
+  //           style: AppStyles.textButtonBlack
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+  //         child: Row(
+  //           children: [
+  //             SvgPicture.asset(AppIcons.iconClock),
+  //             const SizedBox(width: 8),
+  //             Text(
+  //               "09:00 - 03/11/2023",
+  //               style: AppStyles.textFeatures.copyWith(color: const Color(0xffA1A1A1)),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _recentNewsWidget(String image, NewsModel data) {
     return Padding(
@@ -206,6 +212,10 @@ class _NewsScreenState extends State<NewsScreen> {
                     ),
                   ],
                 ),
+                Text(
+                  "ID: ${data.id ?? ''}",
+                  style: AppStyles.textFeatures.copyWith(color: const Color(0xffA1A1A1)),
+                ),
               ],
             ),
           )
@@ -214,11 +224,10 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
-  Widget noDataWidget() {
-    return const Center(
-      child: Text('Không có tin tức nào'),
-    );
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    // _bannerPageController.dispose();
+    super.dispose();
   }
-
-
 }

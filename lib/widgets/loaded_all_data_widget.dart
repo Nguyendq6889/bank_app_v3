@@ -1,9 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import '../app_assets/app_styles.dart';
 
-class ErrorMessageWidget extends StatelessWidget {
-  const ErrorMessageWidget({super.key});
+class LoadedAllDataWidget extends StatelessWidget {
+  final String message;
+  const LoadedAllDataWidget({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ErrorMessageWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
         child: Text(
-          'error_message'.tr(),
+          message,
           textAlign: TextAlign.center,
           style: AppStyles.textNormalBlack,
         ),
