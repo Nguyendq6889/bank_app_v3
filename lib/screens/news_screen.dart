@@ -1,19 +1,19 @@
 import 'package:bank_app_v3/app_assets/app_colors.dart';
 import 'package:bank_app_v3/modules/news/cubits/news_state.dart';
 import 'package:bank_app_v3/modules/news/models/news_model.dart';
+import 'package:bank_app_v3/widgets/load_more_list_view_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import '../app_assets/app_icons.dart';
 import '../app_assets/app_images.dart';
 import '../app_assets/app_styles.dart';
 import '../modules/news/cubits/news_cubit.dart';
 import '../widgets/error_message_widget.dart';
-import '../widgets/load_more_widget.dart';
 import '../widgets/loaded_all_data_widget.dart';
+import '../widgets/loading_list_view_widget.dart';
 import '../widgets/no_data_widget.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -69,13 +69,14 @@ class _NewsScreenState extends State<NewsScreen> {
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (context, state) {
           if(state is InitNewsState || state is LoadingNewsState) {
-            context.loaderOverlay.show();
+            // context.loaderOverlay.show();
+            return const LoadingListViewWidget();
           } else if(state is ErrorNewsState) {
-            context.loaderOverlay.hide();
+            // context.loaderOverlay.hide();
             if(kDebugMode) print(state.message);
             return const ErrorMessageWidget();    // ErrorMessageWidget in lib/widgets/error_message_widget.dart file.
           } else if(state is SuccessfulNewsState) {
-            context.loaderOverlay.hide();
+            // context.loaderOverlay.hide();
             return RefreshIndicator(
               onRefresh: _onRefresh,
               color: AppColors.primaryColor,
@@ -96,7 +97,7 @@ class _NewsScreenState extends State<NewsScreen> {
                             }
                             return _newsCubit.finishLoadMore
                                 ? const LoadedAllDataWidget(message: 'Không còn tin tức nào nữa.')
-                                : const LoadMoreWidget();
+                                : const LoadMoreListViewWidget();
                           }
                         }
                       ),
@@ -117,14 +118,15 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   Future<void> _loadMore() async {
-    // if (!_scrollController.hasClients) return;
-    // flutter: extentAfter ====================== 358.7333333333333
-    // flutter: maxScrollExtent ====================== 359.9        279         149
-    // flutter: offset ====================== 1.1666666666666667
-    print('extentAfter ====================== ${_scrollController.position.extentAfter}');
-    print('maxScrollExtent ====================== ${_scrollController.position.maxScrollExtent}');
-    print('offset ====================== ${_scrollController.offset}');
+    if (kDebugMode) {
+      print('extentBefore ====================== ${_scrollController.position.extentBefore}');
+      print('extentAfter ====================== ${_scrollController.position.extentAfter}');
+      // print('maxScrollExtent ====================== ${_scrollController.position.maxScrollExtent}');
+      // print('offset ====================== ${_scrollController.offset}');
+    }
     // if(_scrollController.position.maxScrollExtent == _scrollController.offset) {
+    // if(_scrollController.position.extentAfter < 500 && _scrollController.position.extentBefore > 100) {
+    // if(_scrollController.position.extentAfter < 700) {
     if(_scrollController.position.extentAfter < 200) {
       if(_newsCubit.isLoading) return;
       _page++;

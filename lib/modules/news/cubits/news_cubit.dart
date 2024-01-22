@@ -30,7 +30,10 @@ class NewsCubit extends Cubit<NewsState> {
         emit(SuccessfulNewsState(_listNews));
       } else {
         if(response.listNews != null) {
-          _listNews = response.listNews!;
+          final listA = response.listNews!;
+          _listNews = response.listNews! + listA;
+          // _listNews = response.listNews!;
+          await Future.delayed(Duration(seconds: 2));
           emit(SuccessfulNewsState(_listNews));
         } else {
           emit(ErrorNewsState('Gọi API bị null'));
@@ -38,10 +41,6 @@ class NewsCubit extends Cubit<NewsState> {
       }
       isLoading = false;
     } catch(error, stackTrace) {
-      // if (kDebugMode) {
-      //   print(error);
-      //   print(stackTrace);
-      // }
       emit(ErrorNewsState(error.toString()));
       rethrow;      // it also prints out the error and stackTrace, help make debugging easier.
     }
