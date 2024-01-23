@@ -1,5 +1,4 @@
 import 'package:bank_app_v3/modules/news/cubits/news_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/news_model.dart';
@@ -9,14 +8,13 @@ class NewsCubit extends Cubit<NewsState> {
   final NewsRepo _newsRepo;
   NewsCubit(this._newsRepo) : super(InitNewsState());
 
-  int _page = 1;
   List<NewsModel> _listNews = [];
-  bool isLoading = false;
+  int _page = 1;
+  bool _isLoading = false;
   bool finishLoadMore = false;
   bool hasErrorWhenLoadMore = false;
 
-  Future<void> getListNews(int page, {bool? loadMore}) async {
-    isLoading = true;
+  Future<void> getListNews({int page = 1, bool? reFresh, bool? loadMore}) async {
     // emit(LoadingNewsState());
     try {
       final response = await _newsRepo.getListNews(page);
@@ -30,16 +28,15 @@ class NewsCubit extends Cubit<NewsState> {
         emit(SuccessfulNewsState(_listNews));
       } else {
         if(response.listNews != null) {
-          final listA = response.listNews!;
-          _listNews = response.listNews! + listA;
-          // _listNews = response.listNews!;
-          await Future.delayed(Duration(seconds: 2));
+          // final listA = response.listNews!;
+          // _listNews = response.listNews! + listA;
+          _listNews = response.listNews!;
+          await Future.delayed(const Duration(seconds: 1));
           emit(SuccessfulNewsState(_listNews));
         } else {
           emit(ErrorNewsState('Gọi API bị null'));
         }
       }
-      isLoading = false;
     } catch(error, stackTrace) {
       emit(ErrorNewsState(error.toString()));
       rethrow;      // it also prints out the error and stackTrace, help make debugging easier.
@@ -47,11 +44,20 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   Future<void> onLoadMore() async {
-    // if(isLoading) return;
+    if(_isLoading) return;
     if (!finishLoadMore && !hasErrorWhenLoadMore) {
+      _isLoading = true;
       _page++;
-      await getListNews(_page, loadMore: true);
-      // isLoading = false;
+      await getListNews(page: _page, loadMore: true);
+      _isLoading = false;
     }
+  }
+
+  Future<void> onRefresh() async {
+    _page = 1;
+    _listNews = [];
+    finishLoadMore = false;
+    hasErrorWhenLoadMore = false;
+    await getListNews(reFresh: true);
   }
 }

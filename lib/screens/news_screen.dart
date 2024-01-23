@@ -3,7 +3,7 @@ import 'package:bank_app_v3/modules/news/cubits/news_state.dart';
 import 'package:bank_app_v3/modules/news/models/news_model.dart';
 import 'package:bank_app_v3/widgets/load_more_list_view_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,24 +25,23 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   late final NewsCubit _newsCubit;
-  int _page = 1;
   final ScrollController _scrollController = ScrollController();
-  // final PageController _bannerPageController = PageController(initialPage: 0);
-  // int _selectedBannerPage = 0;
+  final PageController _bannerPageController = PageController(initialPage: 0);
+  int _selectedBannerPage = 0;
 
   @override
   void initState() {
     _scrollController.addListener(_loadMore);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _newsCubit = BlocProvider.of<NewsCubit>(context);
-      _newsCubit.getListNews(_page);
+      _newsCubit.getListNews();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -68,42 +67,89 @@ class _NewsScreenState extends State<NewsScreen> {
       ),
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (context, state) {
-          if(state is InitNewsState || state is LoadingNewsState) {
+          if (state is InitNewsState || state is LoadingNewsState) {
             // context.loaderOverlay.show();
             return const LoadingListViewWidget();
-          } else if(state is ErrorNewsState) {
+          } else if (state is ErrorNewsState) {
             // context.loaderOverlay.hide();
-            if(kDebugMode) print(state.message);
-            return const ErrorMessageWidget();    // ErrorMessageWidget in lib/widgets/error_message_widget.dart file.
-          } else if(state is SuccessfulNewsState) {
+            return const ErrorMessageWidget(); // ErrorMessageWidget in lib/widgets/error_message_widget.dart file.
+          } else if (state is SuccessfulNewsState) {
             // context.loaderOverlay.hide();
             return RefreshIndicator(
               onRefresh: _onRefresh,
               color: AppColors.primaryColor,
-              child: state.listNews.isEmpty ? const NoDataWidget(message: 'Không có tin tức nào.') : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    Expanded(
+              child: state.listNews.isEmpty ? const NoDataWidget(message: 'Không có tin tức nào.') : ListView(
+                controller: _scrollController,
+                children: [
+                  const SizedBox(height: 16),
+                  /// News slider start
+                  ExpandablePageView(
+                    controller: _bannerPageController,
+                    physics: const BouncingScrollPhysics(),
+                    onPageChanged: (index) {
+                      setState(() {
+                        _selectedBannerPage = index;
+                      });
+                    },
+                    children: [
+                      _banner(AppImages.imageNews1, size),
+                      _banner(AppImages.imageNews2, size),
+                      _banner(AppImages.imageNews3, size),
+                      _banner(AppImages.imageNews4, size),
+                    ],
+                  ),
+                  /// News slider end
+                  const SizedBox(height: 16),
+                  /// Dots indicator start
+                  Center(
+                    child: SizedBox(
+                      height: 10,
                       child: ListView.builder(
-                        controller: _scrollController,
-                        itemCount: state.listNews.length + 1,
-                        itemBuilder: (BuildContext context, int index) {
-                          if(index < state.listNews.length) {
-                            return _recentNewsWidget(AppImages.imageRecentNews1, state.listNews[index]);
-                          } else {
-                            if(_newsCubit.hasErrorWhenLoadMore){
-                              return const ErrorMessageWidget();
-                            }
-                            return _newsCubit.finishLoadMore
-                                ? const LoadedAllDataWidget(message: 'Không còn tin tức nào nữa.')
-                                : const LoadMoreListViewWidget();
-                          }
-                        }
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (_, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              _bannerPageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+                            },
+                            child: AnimatedContainer(
+                              width: _selectedBannerPage == index ? 28 : 10,
+                              height: 10,
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              duration: const Duration(milliseconds: 100),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: _selectedBannerPage == index ? const Color(0xff5289F4) : const Color(0xffDDDDDD),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  ]
-                ),
+                  ),
+                  /// Dots indicator end
+                  const SizedBox(height: 16),
+                  /// Recent news start
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    color: const Color(0xffF9F9F9),
+                    child: Text('recent_news'.tr(), style: AppStyles.textButtonBlack),
+                  ),
+                  ...List.generate(state.listNews.length + 1, (index) {
+                    if (index < state.listNews.length) {
+                      return _recentNewsWidget(AppImages.imageRecentNews1, state.listNews[index]);
+                    } else {
+                      if (_newsCubit.hasErrorWhenLoadMore) {
+                        return const ErrorMessageWidget();
+                      }
+                      return _newsCubit.finishLoadMore
+                          ? const LoadedAllDataWidget(message: 'Không còn tin tức nào nữa.')
+                          : const LoadMoreListViewWidget();
+                    }
+                  }),
+                ],
               ),
             );
           }
@@ -113,68 +159,42 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
-  Future<void> _onRefresh() async {
-    await _newsCubit.getListNews(1);
+  Widget _banner(String image, Size size) {
+    return Column(
+      children: [
+        Container(
+          height: size.height * 26.108 / 100,
+          width: double.infinity,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
+          child: Text('news_title'.tr(), style: AppStyles.textButtonBlack),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+          child: Row(
+            children: [
+              SvgPicture.asset(AppIcons.iconClock),
+              const SizedBox(width: 8),
+              Text(
+                "09:00 - 03/11/2023",
+                style: AppStyles.textFeatures.copyWith(color: const Color(0xffA1A1A1)),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
-
-  Future<void> _loadMore() async {
-    if (kDebugMode) {
-      print('extentBefore ====================== ${_scrollController.position.extentBefore}');
-      print('extentAfter ====================== ${_scrollController.position.extentAfter}');
-      // print('maxScrollExtent ====================== ${_scrollController.position.maxScrollExtent}');
-      // print('offset ====================== ${_scrollController.offset}');
-    }
-    // if(_scrollController.position.maxScrollExtent == _scrollController.offset) {
-    // if(_scrollController.position.extentAfter < 500 && _scrollController.position.extentBefore > 100) {
-    // if(_scrollController.position.extentAfter < 700) {
-    if(_scrollController.position.extentAfter < 200) {
-      if(_newsCubit.isLoading) return;
-      _page++;
-      await _newsCubit.onLoadMore();
-    }
-  }
-
-  // Widget _banner(String image, Size size) {
-  //   return Column(
-  //     children: [
-  //       Container(
-  //         height: size.height * 26.108 / 100,
-  //         width: double.infinity,
-  //         margin: const EdgeInsets.symmetric(horizontal: 16),
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(16),
-  //           image: DecorationImage(
-  //             image: AssetImage(image), fit: BoxFit.cover,
-  //           )
-  //         ),
-  //       ),
-  //       Padding(
-  //         padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
-  //         child: Text(
-  //           'news_title'.tr(),
-  //           style: AppStyles.textButtonBlack
-  //         ),
-  //       ),
-  //       Padding(
-  //         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-  //         child: Row(
-  //           children: [
-  //             SvgPicture.asset(AppIcons.iconClock),
-  //             const SizedBox(width: 8),
-  //             Text(
-  //               "09:00 - 03/11/2023",
-  //               style: AppStyles.textFeatures.copyWith(color: const Color(0xffA1A1A1)),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _recentNewsWidget(String image, NewsModel data) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -184,9 +204,7 @@ class _NewsScreenState extends State<NewsScreen> {
             decoration: BoxDecoration(
               color: Colors.grey[400],
               borderRadius: BorderRadius.circular(6),
-              image: DecorationImage(
-                image: AssetImage(image), fit: BoxFit.cover,
-              )
+              image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
             ),
           ),
           const SizedBox(width: 16),
@@ -226,10 +244,23 @@ class _NewsScreenState extends State<NewsScreen> {
     );
   }
 
+  Future<void> _onRefresh() async {
+    await _newsCubit.onRefresh();
+  }
+
+  Future<void> _loadMore() async {
+    // if(_scrollController.position.maxScrollExtent == _scrollController.offset) {
+    // if(_scrollController.position.extentAfter < 500 && _scrollController.position.extentBefore > 100) {
+    // if(_scrollController.position.extentAfter < 700) {
+    if (_scrollController.position.extentAfter < 200) {
+      await _newsCubit.onLoadMore();
+    }
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
-    // _bannerPageController.dispose();
+    _bannerPageController.dispose();
     super.dispose();
   }
 }

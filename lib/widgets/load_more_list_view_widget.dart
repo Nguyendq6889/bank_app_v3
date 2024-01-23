@@ -14,7 +14,7 @@ class LoadMoreListViewWidget extends StatelessWidget {
               baseColor: Colors.grey.shade300,
               highlightColor: Colors.grey.shade100,
               child: Padding(
-                padding: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
