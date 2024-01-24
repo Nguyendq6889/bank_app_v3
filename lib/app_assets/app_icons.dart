@@ -2,6 +2,7 @@ class AppIcons {
   static const String iconsPath = 'assets/icons';
 
   static const String iconBack = '$iconsPath/icon_back.svg';
+  static const String iconImageError = '$iconsPath/icon_image_error.png';
 
   // Sign in screen
   static const String iconFingerprint = '$iconsPath/icon_fingerprint.svg';

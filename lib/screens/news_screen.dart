@@ -12,6 +12,7 @@ import '../app_assets/app_images.dart';
 import '../app_assets/app_styles.dart';
 import '../modules/news/cubits/news_cubit.dart';
 import '../widgets/error_message_widget.dart';
+import '../widgets/image_network_widget.dart';
 import '../widgets/loaded_all_data_widget.dart';
 import '../widgets/loading_list_view_widget.dart';
 import '../widgets/no_data_widget.dart';
@@ -198,14 +199,11 @@ class _NewsScreenState extends State<NewsScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 74,
+          const ImageNetworkWidget(     // Widget dùng chung
+            imageUrl: "https://i.pinimg.com/originals/2c/84/5a/2c845a66b8ad2a8aafd288bdc16cd459.jpg",
             width: 112,
-            decoration: BoxDecoration(
-              color: Colors.grey[400],
-              borderRadius: BorderRadius.circular(6),
-              image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-            ),
+            height: 74,
+            borderRadius: 6,
           ),
           const SizedBox(width: 16),
           Expanded(
