@@ -2,6 +2,18 @@
   "welcome_to": "Chào mừng đến với",
   "error_message": "Đã có lỗi xảy ra, vui lòng thử lại sau.",
 
+  "authentication_required": "Yêu cầu xác thực",
+  "verify_identity": "Xác minh danh tính",
+  "cancel": "Huỷ",
+  "go_to_settings": "Đi tới cài đặt",
+  "authentication_failed": "Không đúng. Vui lòng thử lại.",
+  "success": "Thành công",
+  "biometric_required": "Yêu cầu sinh trắc học",
+  "device_credentials_required": "Yêu cầu thông tin xác thực thiết bị",
+  "message_configure_biometric": "Xác thực sinh trắc học chưa được thiết lập trên thiết bị của bạn. Đi đến\n\"Cài đặt > Bảo mật\" để thêm xác thực sinh trắc học.",
+  "message_re-enable_biometrics": "Xác thực sinh trắc học bị vô hiệu hóa. Vui lòng khóa và mở khóa màn hình của bạn để kích hoạt lại.",
+  "message_configure_biometric_ios": "Xác thực sinh trắc học chưa được thiết lập trên thiết bị của bạn. Vui lòng kích hoạt Touch ID hoặc Face ID trên điện thoại của bạn.",
+
   "sign_in": "Đăng nhập",
   "username": "Tên đăng nhập",
   "phone_number": "Số điện thoại",

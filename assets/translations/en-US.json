@@ -2,6 +2,18 @@
   "welcome_to": "Welcome to",
   "error_message": "An error has occurred, please try again later.",
 
+  "authentication_required": "Authentication required",
+  "verify_identity": "Verify identity",
+  "cancel": "Cancel",
+  "go_to_settings": "Go to settings",
+  "authentication_failed": "Not recognized. Try again.",
+  "success": "Success",
+  "biometric_required": "Biometric required",
+  "device_credentials_required": "Device credentials required",
+  "message_configure_biometric": "Biometric authentication is not set up on your device. Go to\n\"Settings > Security\" to add biometric authentication.",
+  "message_re-enable_biometrics": "Biometric authentication is disabled. Please lock and unlock your screen to enable it.",
+  "message_configure_biometric_ios": "Biometric authentication is not set up on your device. Please either enable Touch ID or Face ID on your phone.",
+
   "sign_in": "Sign in",
   "username": "Username",
   "phone_number": "Phone number",
