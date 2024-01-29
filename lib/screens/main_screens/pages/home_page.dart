@@ -11,7 +11,7 @@ import '../../../app_assets/app_styles.dart';
 import '../../../modules/news/cubits/news_cubit.dart';
 import '../../../modules/news/repository/news_repo.dart';
 import '../../../modules/news/pages/news_page.dart';
-import '../../payment/payment_screen.dart';
+import '../../../modules/payment/pages/payment_page.dart';
 import '../../transfer/transfer_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                               _feature(
                                 'payment'.tr(),
                                 AppIcons.iconPayment,
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PaymentScreen())),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PaymentPage())),
                               ),
                               _feature('card_service'.tr(), AppIcons.iconCards),
                               _feature('account'.tr(), AppIcons.iconWallet),
@@ -367,7 +367,7 @@ class _HomePageState extends State<HomePage> {
                   _feature(
                     'payment'.tr(),
                     AppIcons.iconPayment,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PaymentScreen())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const PaymentPage())),
                   ),
                   _feature('card_service'.tr(), AppIcons.iconCards),
                   _feature('account'.tr(), AppIcons.iconWallet),
