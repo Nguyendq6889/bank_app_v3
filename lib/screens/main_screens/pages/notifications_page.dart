@@ -36,7 +36,7 @@ class NotificationsPage extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: InkWell(
-                    // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransactionDetailScreen())),
+                    // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransactionDetailPage())),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,

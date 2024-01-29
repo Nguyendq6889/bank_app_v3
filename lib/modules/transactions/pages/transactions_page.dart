@@ -5,7 +5,7 @@ import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_styles.dart';
 import '../../../widgets/common_widget.dart';
-import '../../transaction_detail_screen.dart';
+import 'transaction_detail_page.dart';
 
 class TransactionsPage extends StatefulWidget {
   const TransactionsPage({super.key});
@@ -199,7 +199,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
                               child: InkWell(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransactionDetailScreen())),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransactionDetailPage())),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

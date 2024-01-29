@@ -6,7 +6,7 @@ import '../../modules/qr_code/pages/qr_code_scan_page.dart';
 import 'pages/account_page.dart';
 import '../../modules/home/pages/home_page.dart';
 import 'pages/notifications_page.dart';
-import 'pages/transactions_page.dart';
+import '../../modules/transactions/pages/transactions_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
