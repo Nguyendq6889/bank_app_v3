@@ -9,9 +9,9 @@ import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
-import '../../../modules/user_info/cubits/user_info_cubit.dart';
+import '../../user_info/cubits/user_info_cubit.dart';
 import '../../../widgets/language_option_widget.dart';
-import '../../../modules/user_info/pages/user_info_page.dart';
+import '../../user_info/pages/user_info_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});

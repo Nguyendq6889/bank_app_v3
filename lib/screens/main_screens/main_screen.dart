@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../app_assets/app_icons.dart';
 import '../../modules/qr_code/pages/qr_code_scan_page.dart';
-import 'pages/account_page.dart';
+import '../../modules/account/pages/account_page.dart';
 import '../../modules/home/pages/home_page.dart';
 import 'pages/notifications_page.dart';
 import '../../modules/transactions/pages/transactions_page.dart';
