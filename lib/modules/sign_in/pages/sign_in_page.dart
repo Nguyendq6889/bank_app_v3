@@ -11,7 +11,7 @@ import '../../../app_assets/app_styles.dart';
 import '../../../features/biometrics_authentication/biometrics_authen_widget.dart';
 import '../../../widgets/language_option_widget.dart';
 import '../../../widgets/main_button_widget.dart';
-import '../../../screens/main_screens/main_screen.dart';
+import '../../dashboard/page/dashboard_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -229,12 +229,12 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               BiometricsAuthenWidget(
                                 onChanged: (bool authenticated) {
-                                  if(authenticated) _goToMainScreen();
+                                  if(authenticated) _goToDashboardPage();
                                 },
                               ),
                               SizedBox(height: size.height * 2.5 / 100),
                               // MainButtonWidget in lib/widgets/main_button_widget.dart file.
-                              MainButtonWidget(text: 'sign_in'.tr(), onTap: () => _goToMainScreen()),
+                              MainButtonWidget(text: 'sign_in'.tr(), onTap: () => _goToDashboardPage()),
                               SizedBox(height: size.height * 2.5 / 100),
                               GestureDetector(
                                 onTap: () {
@@ -362,12 +362,12 @@ class _SignInPageState extends State<SignInPage> {
     });
   }
 
-  void _goToMainScreen() {
+  void _goToDashboardPage() {
     context.loaderOverlay.show();     // Show loading effect
     Future.delayed(const Duration(seconds: 1), () {
-      // After 1 seconds, hide loading effect and navigate to the MainScreen and replace the current SignInPage.
+      // After 1 seconds, hide loading effect and navigate to the DashboardPage and replace the current SignInPage.
       context.loaderOverlay.hide();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const MainScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const DashboardPage()));
     });
   }
 

@@ -83,7 +83,7 @@ class _BiometricsAuthenWidgetState extends State<BiometricsAuthenWidget> {
         print('Authenticated: $authenticated');
       }
       if (authenticated) {
-        // Nếu xác thực thành công thì gọi hàm onChanged và truyền vào true để sau đó gọi hàm _goToMainScreen bên trang SignIn.
+        // Nếu xác thực thành công thì gọi hàm onChanged và truyền vào true để sau đó gọi hàm _goToDashboardPage bên trang SignIn.
         widget.onChanged.call(true);
       }
     } on PlatformException catch (e) {

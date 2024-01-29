@@ -1,21 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../app_assets/app_icons.dart';
-import '../../modules/qr_code/pages/qr_code_scan_page.dart';
-import '../../modules/account/pages/account_page.dart';
-import '../../modules/home/pages/home_page.dart';
-import '../../modules/notifications/pages/notifications_page.dart';
-import '../../modules/transactions/pages/transactions_page.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../qr_code/pages/qr_code_scan_page.dart';
+import '../../account/pages/account_page.dart';
+import '../../home/pages/home_page.dart';
+import '../../notifications/pages/notifications_page.dart';
+import '../../transactions/pages/transactions_page.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _DashboardPageState extends State<DashboardPage> {
   int _selectedIndex = 0;
   static const TextStyle selectedLabelStyle = TextStyle(fontSize: 12, fontWeight: FontWeight.w700, height: 1.6);
   static const List<Widget> _widgetOptions = <Widget>[
