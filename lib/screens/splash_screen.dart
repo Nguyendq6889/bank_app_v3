@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../app_assets/app_colors.dart';
-import 'sign_in_screen.dart';
+import '../modules/sign_in/pages/sign_in_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,11 +16,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive); // Hide the default device navigation bar.
 
-    // Delay the navigation to the SignInScreen by 2 seconds.
+    // Delay the navigation to the SignInPage by 2 seconds.
     Future.delayed(const Duration(seconds: 2), () {
-      // After 2 seconds, navigate to the SignInScreen and replace the current SplashScreen.
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const SignInScreen()));
-      // Navigator.pushReplacementNamed(context, 'SignInScreen');
+      // After 2 seconds, navigate to the SignInPage and replace the current SplashScreen.
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const SignInPage()));
+      // Navigator.pushReplacementNamed(context, 'SignInPage');
     });
     super.initState();
   }

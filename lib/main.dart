@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/sign_in_screen.dart';
+import 'modules/sign_in/cubits/sign_in_cubit.dart';
+import 'modules/sign_in/pages/sign_in_page.dart';
+import 'modules/sign_in/repository/sign_in_repo.dart';
 import 'screens/splash_screen.dart';
 import 'widgets/loading_widget.dart';
 
@@ -62,7 +65,10 @@ class MyApp extends StatelessWidget {
         ),
         routes: {     // Navigation option using routeName and pushNamed
           // 'SplashScreen': (context) => const SplashScreen(),
-          'SignInScreen': (context) => const SignInScreen(),
+          'SignInPage': (context) => BlocProvider(
+            create: (context) => SignInCubit(SignInRepo()),
+            child: const SignInPage(),
+          ),
         },
         home: const SplashScreen(),
         // initialRoute: 'SplashScreen',
