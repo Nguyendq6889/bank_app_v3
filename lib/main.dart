@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'modules/sign_in/cubits/sign_in_cubit.dart';
 import 'modules/sign_in/pages/sign_in_page.dart';
 import 'modules/sign_in/repository/sign_in_repo.dart';
-import 'screens/splash_screen.dart';
+import 'modules/splash_screen/splash_screen.dart';
 import 'widgets/loading_widget.dart';
 
 void main() async {

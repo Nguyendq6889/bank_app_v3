@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../app_assets/app_colors.dart';
-import '../modules/sign_in/pages/sign_in_page.dart';
+import '../../app_assets/app_colors.dart';
+import '../sign_in/pages/sign_in_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

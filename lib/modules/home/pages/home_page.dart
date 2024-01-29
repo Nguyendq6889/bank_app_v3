@@ -8,11 +8,11 @@ import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
-import '../../../modules/news/cubits/news_cubit.dart';
-import '../../../modules/news/repository/news_repo.dart';
-import '../../../modules/news/pages/news_page.dart';
-import '../../../modules/payment/pages/payment_page.dart';
-import '../../../modules/transfer/pages/transfer_page.dart';
+import '../../news/cubits/news_cubit.dart';
+import '../../news/repository/news_repo.dart';
+import '../../news/pages/news_page.dart';
+import '../../payment/pages/payment_page.dart';
+import '../../transfer/pages/transfer_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
