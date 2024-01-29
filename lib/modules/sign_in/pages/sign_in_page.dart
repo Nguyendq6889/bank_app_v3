@@ -8,10 +8,10 @@ import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
+import '../../../features/biometrics_authentication/biometrics_authen_widget.dart';
 import '../../../widgets/language_option_widget.dart';
 import '../../../widgets/main_button_widget.dart';
 import '../../../screens/main_screens/main_screen.dart';
-import '../../biometrics_authentication/biometrics_authen_widget.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});

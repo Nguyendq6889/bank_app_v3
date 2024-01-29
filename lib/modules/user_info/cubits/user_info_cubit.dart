@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../repositories/user_info_repo.dart';
+import '../repository/user_info_repo.dart';
 import 'user_info_state.dart';
+
 
 class UserInfoCubit extends Cubit<UserInfoState> {
   final UserInfoRepo _userInfoRepo;

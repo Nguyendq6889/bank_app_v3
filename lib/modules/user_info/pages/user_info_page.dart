@@ -5,21 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-import '../app_assets/app_icons.dart';
-import '../app_assets/app_images.dart';
-import '../cubits/user_info/user_info_cubit.dart';
-import '../cubits/user_info/user_info_state.dart';
-import '../models/user_info/user_info_model.dart';
-import '../widgets/error_message_widget.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_images.dart';
+import '../../../widgets/error_message_widget.dart';
+import '../cubits/user_info_cubit.dart';
+import '../cubits/user_info_state.dart';
+import '../models/user_info_model.dart';
 
-class UserInfoScreen extends StatefulWidget {
-  const UserInfoScreen({super.key});
+class UserInfoPage extends StatefulWidget {
+  const UserInfoPage({super.key});
 
   @override
-  State<UserInfoScreen> createState() => _UserInfoScreenState();
+  State<UserInfoPage> createState() => _UserInfoPageState();
 }
 
-class _UserInfoScreenState extends State<UserInfoScreen> {
+class _UserInfoPageState extends State<UserInfoPage> {
   // late UserInfoCubit userInfoCubit;
 
   @override

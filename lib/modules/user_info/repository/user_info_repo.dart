@@ -1,8 +1,8 @@
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import '../models/user_info_model.dart';
 
-import '../models/user_info/user_info_model.dart';
 
 class UserInfoRepo {
   final _dio = Dio();

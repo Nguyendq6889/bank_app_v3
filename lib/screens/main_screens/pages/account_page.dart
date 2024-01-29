@@ -1,4 +1,4 @@
-import 'package:bank_app_v3/cubits/user_info/user_info_cubit.dart';
+import 'package:bank_app_v3/modules/user_info/repository/user_info_repo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +9,9 @@ import '../../../app_assets/app_colors.dart';
 import '../../../app_assets/app_icons.dart';
 import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
-import '../../../repositories/user_info_repo.dart';
+import '../../../modules/user_info/cubits/user_info_cubit.dart';
 import '../../../widgets/language_option_widget.dart';
-import '../../user_info_screen.dart';
+import '../../../modules/user_info/pages/user_info_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -75,7 +75,7 @@ class _AccountPageState extends State<AccountPage> {
                         context,
                         MaterialPageRoute(builder: (BuildContext context) => BlocProvider(
                           create: (context) => UserInfoCubit(UserInfoRepo()),
-                          child: const UserInfoScreen()
+                          child: const UserInfoPage()
                         ),
                       ),
                     );

@@ -1,4 +1,4 @@
-import '../../models/user_info/user_info_model.dart';
+import '../models/user_info_model.dart';
 
 abstract class UserInfoState {}
 
