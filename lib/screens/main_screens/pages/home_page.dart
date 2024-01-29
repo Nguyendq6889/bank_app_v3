@@ -10,7 +10,7 @@ import '../../../app_assets/app_images.dart';
 import '../../../app_assets/app_styles.dart';
 import '../../../modules/news/cubits/news_cubit.dart';
 import '../../../modules/news/repository/news_repo.dart';
-import '../../news_screen.dart';
+import '../../../modules/news/pages/news_page.dart';
 import '../../payment/payment_screen.dart';
 import '../../transfer/transfer_screen.dart';
 
@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                   MaterialPageRoute(builder: (BuildContext context) => BlocProvider(
                                     create: (context) => NewsCubit(NewsRepo()),
-                                    child: const NewsScreen()
+                                    child: const NewsPage()
                                   ),
                                 ),
                               );

@@ -7,24 +7,24 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../app_assets/app_icons.dart';
-import '../app_assets/app_images.dart';
-import '../app_assets/app_styles.dart';
-import '../modules/news/cubits/news_cubit.dart';
-import '../widgets/error_message_widget.dart';
-import '../widgets/image_network_widget.dart';
-import '../widgets/loaded_all_data_widget.dart';
-import '../widgets/loading_list_view_widget.dart';
-import '../widgets/no_data_widget.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_images.dart';
+import '../../../app_assets/app_styles.dart';
+import '../cubits/news_cubit.dart';
+import '../../../widgets/error_message_widget.dart';
+import '../../../widgets/image_network_widget.dart';
+import '../../../widgets/loaded_all_data_widget.dart';
+import '../../../widgets/loading_list_view_widget.dart';
+import '../../../widgets/no_data_widget.dart';
 
-class NewsScreen extends StatefulWidget {
-  const NewsScreen({super.key});
+class NewsPage extends StatefulWidget {
+  const NewsPage({super.key});
 
   @override
-  State<NewsScreen> createState() => _NewsScreenState();
+  State<NewsPage> createState() => _NewsPageState();
 }
 
-class _NewsScreenState extends State<NewsScreen> {
+class _NewsPageState extends State<NewsPage> {
   late final NewsCubit _newsCubit;
   final ScrollController _scrollController = ScrollController();
   final PageController _bannerPageController = PageController(initialPage: 0);
