@@ -1,20 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../app_assets/app_colors.dart';
-import '../../app_assets/app_icons.dart';
-import '../../app_assets/app_styles.dart';
-import '../../widgets/common_widget.dart';
-import '../../widgets/main_button_widget.dart';
+import '../../../app_assets/app_colors.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_styles.dart';
+import '../../../widgets/common_widget.dart';
+import '../../../widgets/main_button_widget.dart';
 
-class InterbankTransferScreen extends StatefulWidget {
-  const InterbankTransferScreen({super.key});
+class InterbankTransferPage extends StatefulWidget {
+  const InterbankTransferPage({super.key});
 
   @override
-  State<InterbankTransferScreen> createState() => _InterbankTransferScreenState();
+  State<InterbankTransferPage> createState() => _InterbankTransferPageState();
 }
 
-class _InterbankTransferScreenState extends State<InterbankTransferScreen> {
+class _InterbankTransferPageState extends State<InterbankTransferPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _accountNumberOrCardNumberCtrl = TextEditingController();
   final TextEditingController _amountMoneyCtrl = TextEditingController();

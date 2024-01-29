@@ -12,7 +12,7 @@ import '../../../modules/news/cubits/news_cubit.dart';
 import '../../../modules/news/repository/news_repo.dart';
 import '../../../modules/news/pages/news_page.dart';
 import '../../../modules/payment/pages/payment_page.dart';
-import '../../transfer/transfer_screen.dart';
+import '../../../modules/transfer/pages/transfer_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                               _feature(
                                 'transfer'.tr(),
                                 AppIcons.iconTransfer,
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransferScreen())),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransferPage())),
                               ),
                               _feature(
                                 'payment'.tr(),
@@ -362,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                   _feature(
                     'transfer'.tr(),
                     AppIcons.iconTransfer,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransferScreen())),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const TransferPage())),
                   ),
                   _feature(
                     'payment'.tr(),

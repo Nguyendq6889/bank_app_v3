@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../app_assets/app_colors.dart';
-import '../../app_assets/app_icons.dart';
-import '../../app_assets/app_styles.dart';
-import '../../widgets/feature_widget.dart';
-import 'interbank_transfer_screen.dart';
+import '../../../app_assets/app_colors.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_styles.dart';
+import '../../../widgets/feature_widget.dart';
+import 'interbank_transfer_page.dart';
 
-class TransferScreen extends StatelessWidget {
-  const TransferScreen({super.key});
+class TransferPage extends StatelessWidget {
+  const TransferPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +77,12 @@ class TransferScreen extends StatelessWidget {
                     FeatureWidget(
                       title: 'intra_bank',
                       icon: AppIcons.iconIntraBank,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InterbankTransferScreen()))
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InterbankTransferPage()))
                     ),
                     FeatureWidget(
                       title: 'interbank',
                       icon: AppIcons.iconInterbank,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InterbankTransferScreen()))
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InterbankTransferPage()))
                     ),
                     const FeatureWidget(title: 'international', icon: AppIcons.iconInternational),
                     const FeatureWidget(title: 'savedList', icon: AppIcons.iconSavedList),
