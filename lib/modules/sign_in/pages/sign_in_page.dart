@@ -1,45 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../app_assets/app_colors.dart';
-import '../app_assets/app_icons.dart';
-import '../app_assets/app_images.dart';
-import '../app_assets/app_styles.dart';
-import '../widgets/language_option_widget.dart';
-import '../widgets/main_button_widget.dart';
-import 'main_screens/main_screen.dart';
+import '../../../app_assets/app_colors.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_images.dart';
+import '../../../app_assets/app_styles.dart';
+import '../../../widgets/language_option_widget.dart';
+import '../../../widgets/main_button_widget.dart';
+import '../../../screens/main_screens/main_screen.dart';
+import '../../biometrics_authentication/biometrics_authen_widget.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInPageState extends State<SignInPage> {
   String? _language;
-  late final LocalAuthentication auth;
-  bool _supportState = false;
-  List<BiometricType> availableBiometrics = [];
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
-    auth = LocalAuthentication();
     _getLanguage();
-    _getAvailableBiometrics();
-    auth.isDeviceSupported().then((bool isSupported) => setState(() {
-        _supportState = isSupported;
-      }),
-    );
     super.initState();
   }
 
@@ -237,26 +227,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                 ),
                               ),
-                              if(_supportState) GestureDetector(
-                                onTap: () {
-                                  _authenticate();
+                              BiometricsAuthenWidget(
+                                onChanged: (bool authenticated) {
+                                  if(authenticated) _goToMainScreen();
                                 },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    availableBiometrics.contains(BiometricType.face)
-                                        ? SvgPicture.asset(AppIcons.iconFaceID, colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn))
-                                        : SvgPicture.asset(AppIcons.iconFingerprint),
-                                    const SizedBox(width: 12),
-                                    Text(
-                                      availableBiometrics.contains(BiometricType.face)
-                                          ? 'Face ID'
-                                          : 'Touch ID',
-                                      style: AppStyles.textButtonBlack.copyWith(fontWeight: FontWeight.w600)
-                                    )
-                                  ],
-                                ),
                               ),
                               SizedBox(height: size.height * 2.5 / 100),
                               // MainButtonWidget in lib/widgets/main_button_widget.dart file.
@@ -388,48 +362,10 @@ class _SignInScreenState extends State<SignInScreen> {
     });
   }
 
-  // Function to retrieve available biometric methods supported by the device.
-  Future<void> _getAvailableBiometrics() async {
-    availableBiometrics = await auth.getAvailableBiometrics();    // Call the authentication service to get the list of available biometrics.
-    if (kDebugMode) {    // If in debug mode, print the list of available biometrics.
-      print('List of availableBiometrics: $availableBiometrics');
-    }
-    // Check if the widget is still mounted before proceeding.
-    // This is important to avoid updating the state of an unmounted widget.
-    if (!mounted) {
-      return;
-    }
-  }
-
-  // Biometric authentication function.
-  Future<void> _authenticate() async {
-    try {
-      // Attempt to authenticate using biometrics.
-      bool authenticated = await auth.authenticate(
-        localizedReason: 'text_use_finger'.tr(),    // Use the tr() method to enable translation feature.
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true
-        ),
-      );
-      if (kDebugMode) {    // If in debug mode, print whether authentication was successful.
-        print('Authenticated: $authenticated');
-      }
-      if(authenticated) {    // If authentication is successful, navigate to the MainScreen.
-        _goToMainScreen();
-      }
-    } on PlatformException catch (e) {
-      // Catch and print any platform-specific exceptions that may occur.
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-  }
-
   void _goToMainScreen() {
     context.loaderOverlay.show();     // Show loading effect
     Future.delayed(const Duration(seconds: 1), () {
-      // After 1 seconds, hide loading effect and navigate to the MainScreen and replace the current SignInScreen.
+      // After 1 seconds, hide loading effect and navigate to the MainScreen and replace the current SignInPage.
       context.loaderOverlay.hide();
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const MainScreen()));
     });
