@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../../app_assets/app_colors.dart';
-import '../../app_assets/app_icons.dart';
-import '../../app_assets/app_images.dart';
-import '../../app_assets/app_styles.dart';
-import '../../widgets/main_button_widget.dart';
+import '../../../app_assets/app_colors.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_images.dart';
+import '../../../app_assets/app_styles.dart';
+import '../../../widgets/main_button_widget.dart';
 
-class QRCodeInfoScreen extends StatelessWidget {
+class QRCodeInfoPage extends StatelessWidget {
   final Barcode result;
-  const QRCodeInfoScreen({super.key, required this.result});
+  const QRCodeInfoPage({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {

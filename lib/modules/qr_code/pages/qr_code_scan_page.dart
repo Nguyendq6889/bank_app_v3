@@ -4,18 +4,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../../app_assets/app_icons.dart';
-import '../../app_assets/app_styles.dart';
-import 'qr_code_info_screen.dart';
+import '../../../app_assets/app_icons.dart';
+import '../../../app_assets/app_styles.dart';
+import 'qr_code_info_page.dart';
 
-class QRCodeScanScreen extends StatefulWidget {
-  const QRCodeScanScreen({super.key});
+class QRCodeScanPage extends StatefulWidget {
+  const QRCodeScanPage({super.key});
 
   @override
-  State<QRCodeScanScreen> createState() => _QRCodeScanScreenState();
+  State<QRCodeScanPage> createState() => _QRCodeScanPageState();
 }
 
-class _QRCodeScanScreenState extends State<QRCodeScanScreen> {
+class _QRCodeScanPageState extends State<QRCodeScanPage> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -147,13 +147,13 @@ class _QRCodeScanScreenState extends State<QRCodeScanScreen> {
     });
     controller.scannedDataStream.listen((scanData) async {  // Listen to scanned data stream
       await controller.pauseCamera();    // After scanning is complete, pause the camera.
-      goToQRCodeInfoScreen(scanData);    // Navigate to QRCodeInfoScreen with the scanned data
+      goToQRCodeInfoPage(scanData);    // Navigate to QRCodeInfoPage with the scanned data
     });
   }
 
-  void goToQRCodeInfoScreen(Barcode result) {
-    // Navigate to the QRCodeInfoScreen and replace the current QRCodeScanScreen.
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => QRCodeInfoScreen(result: result)));
+  void goToQRCodeInfoPage(Barcode result) {
+    // Navigate to the QRCodeInfoPage and replace the current QRCodeScanPage.
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => QRCodeInfoPage(result: result)));
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

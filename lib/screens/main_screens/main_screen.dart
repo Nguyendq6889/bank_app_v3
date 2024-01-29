@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../app_assets/app_icons.dart';
-import '../qr_code/qr_code_scan_screen.dart';
+import '../../modules/qr_code/pages/qr_code_scan_page.dart';
 import 'pages/account_page.dart';
 import 'pages/home_page.dart';
 import 'pages/notifications_page.dart';
@@ -30,8 +30,8 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onItemTapped(int index) {
     if(index == 2) {
-      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const QRCodeScanScreen()));
-      // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const QRCodeInfoScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const QRCodeScanPage()));
+      // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const QRCodeInfoPage()));
     } else {
       setState(() {
         _selectedIndex = index;
