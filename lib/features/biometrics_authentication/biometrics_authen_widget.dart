@@ -9,24 +9,24 @@ import '../../app_assets/app_colors.dart';
 import '../../app_assets/app_icons.dart';
 import '../../app_assets/app_styles.dart';
 
-class BiometricsAuthenWidget extends StatefulWidget {
+class BiometricsAuthWidget extends StatefulWidget {
   final ValueChanged<bool> onChanged;
-  const BiometricsAuthenWidget({super.key, required this.onChanged});
+  const BiometricsAuthWidget({super.key, required this.onChanged});
 
   @override
-  State<BiometricsAuthenWidget> createState() => _BiometricsAuthenWidgetState();
+  State<BiometricsAuthWidget> createState() => _BiometricsAuthWidgetState();
 }
 
-class _BiometricsAuthenWidgetState extends State<BiometricsAuthenWidget> {
+class _BiometricsAuthWidgetState extends State<BiometricsAuthWidget> {
   bool _supportState = false;
-  late final LocalAuthentication auth;
-  List<BiometricType> availableBiometrics = [];
+  late final LocalAuthentication _auth;
+  List<BiometricType> _availableBiometrics = [];
 
   @override
   void initState() {
-    auth = LocalAuthentication();
+    _auth = LocalAuthentication();
     _getAvailableBiometrics();
-    auth.isDeviceSupported().then((bool isSupported) => setState(() {
+    _auth.isDeviceSupported().then((bool isSupported) => setState(() {
         _supportState = isSupported;
       }),
     );
@@ -41,12 +41,12 @@ class _BiometricsAuthenWidgetState extends State<BiometricsAuthenWidget> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          availableBiometrics.contains(BiometricType.face)
+          _availableBiometrics.contains(BiometricType.face)
               ? SvgPicture.asset(AppIcons.iconFaceID, colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn))
               : SvgPicture.asset(AppIcons.iconFingerprint),
           const SizedBox(width: 12),
           Text(
-            availableBiometrics.contains(BiometricType.face)
+            _availableBiometrics.contains(BiometricType.face)
                 ? 'Face ID'
                 : 'Touch ID',
             style: AppStyles.textButtonBlack.copyWith(fontWeight: FontWeight.w600),
@@ -58,10 +58,10 @@ class _BiometricsAuthenWidgetState extends State<BiometricsAuthenWidget> {
 
   // Function to retrieve available biometric methods supported by the device.
   Future<void> _getAvailableBiometrics() async {
-    availableBiometrics = await auth.getAvailableBiometrics(); // Call the authentication service to get the list of available biometrics.
+    _availableBiometrics = await _auth.getAvailableBiometrics(); // Call the authentication service to get the list of available biometrics.
     if (kDebugMode) {
       // If in debug mode, print the list of available biometrics.
-      print('List of availableBiometrics: $availableBiometrics');
+      print('List of _availableBiometrics: $_availableBiometrics');
     }
     // Check if the widget is still mounted before proceeding.
     // This is important to avoid updating the state of an unmounted widget.
@@ -74,7 +74,7 @@ class _BiometricsAuthenWidgetState extends State<BiometricsAuthenWidget> {
   Future<void> _authenticate() async {
     try {
       // Attempt to authenticate using biometrics.
-      bool authenticated = await auth.authenticate(
+      bool authenticated = await _auth.authenticate(
         localizedReason: 'text_use_finger'.tr(),      // Use the tr() method to enable translation feature.
         options: const AuthenticationOptions(stickyAuth: true, biometricOnly: true),
       );

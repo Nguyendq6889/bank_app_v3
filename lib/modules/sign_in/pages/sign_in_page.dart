@@ -203,7 +203,7 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   ),
                                 ),
-                                BiometricsAuthenWidget(
+                                BiometricsAuthWidget(
                                   onChanged: (bool authenticated) {
                                     if(authenticated) _goToDashboardPage();
                                   },
