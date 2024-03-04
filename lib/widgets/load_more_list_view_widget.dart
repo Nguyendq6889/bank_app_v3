@@ -9,7 +9,7 @@ class LoadMoreListViewWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ...List.generate(5, (index) {
+          ...List.generate(3, (index) {
             return Shimmer.fromColors(
               baseColor: Colors.grey.shade300,
               highlightColor: Colors.grey.shade100,

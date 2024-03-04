@@ -249,8 +249,8 @@ class _NewsPageState extends State<NewsPage> {
   Future<void> _loadMore() async {
     // if(_scrollController.position.maxScrollExtent == _scrollController.offset) {
     // if(_scrollController.position.extentAfter < 500 && _scrollController.position.extentBefore > 100) {
-    // if(_scrollController.position.extentAfter < 700) {
-    if (_scrollController.position.extentAfter < 200) {
+    if(_scrollController.position.extentAfter < 700) {
+    // if (_scrollController.position.extentAfter < 200) {
       await _newsCubit.onLoadMore();
     }
   }

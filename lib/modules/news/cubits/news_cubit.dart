@@ -21,6 +21,7 @@ class NewsCubit extends Cubit<NewsState> {
       if(loadMore ?? false) {
         if(response.listNews == null) {
           hasErrorWhenLoadMore = true;
+        // } else if(response.listNews != null && response.listNews!.length < _pageSize) {
         } else if(response.listNews != null && response.listNews!.isEmpty) {
           finishLoadMore = true;
         }
