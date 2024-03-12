@@ -15,9 +15,10 @@ class TransactionsPage extends StatefulWidget {
 }
 
 class _TransactionsPageState extends State<TransactionsPage> {
-  String month = 'february'.tr();
-  String year = '2023';
-  String transactionType = 'all'.tr();
+  // final ValueNotifier<Items> _nhaCungCapNotifier = ValueNotifier<Items>(Items());
+  final ValueNotifier<String> _monthNotifier = ValueNotifier<String>('february'.tr());
+  final ValueNotifier<String> _yearNotifier = ValueNotifier<String>('2023');
+  final ValueNotifier<String> _transactionTypeNotifier = ValueNotifier<String>('all'.tr());
 
   List<String> listMonths = [
     'january'.tr(),
@@ -37,7 +38,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
     '2020',
     '2021',
     '2022',
-    '2023'
+    '2023',
+    '2024'
   ];
   List<String> listTransactionType = [
     'from'.tr(),
@@ -87,12 +89,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 context: context,
                                 listData: listMonths,
                                 valueType: 'select_month'.tr(),
-                                currentValue: month,
+                                currentValue: _monthNotifier.value,
                                 onValueSelected: (selectedValue) {
-                                  // Reset the value of variable "month" to the selected value
-                                  setState(() {
-                                    month = selectedValue;
-                                  });
+                                  // Reset the value of "_monthNotifier" to the selected value
+                                  _monthNotifier.value = selectedValue;
                                 },
                               ),
                               child: Container(
@@ -105,9 +105,14 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      month,
-                                      style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e))
+                                    ValueListenableBuilder(
+                                      valueListenable: _monthNotifier,
+                                      builder: (context, value, _) {
+                                        return Text(
+                                          _monthNotifier.value,
+                                          style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e)),
+                                        );
+                                      },
                                     ),
                                     SvgPicture.asset(AppIcons.iconArrowDown)
                                   ],
@@ -123,12 +128,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 context: context,
                                 listData: listYears,
                                 valueType: 'select_year'.tr(),
-                                currentValue: year,
+                                currentValue: _yearNotifier.value,
                                 onValueSelected: (selectedValue) {
-                                  // Reset the value of variable "year" to the selected value
-                                  setState(() {
-                                    year = selectedValue;
-                                  });
+                                  // Reset the value of "_yearNotifier" to the selected value
+                                  _yearNotifier.value = selectedValue;
                                 },
                               ),
                               child: Container(
@@ -141,9 +144,14 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      year,
-                                      style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e))
+                                    ValueListenableBuilder(
+                                      valueListenable: _yearNotifier,
+                                      builder: (context, value, _) {
+                                        return Text(
+                                          _yearNotifier.value,
+                                          style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e)),
+                                        );
+                                      },
                                     ),
                                     SvgPicture.asset(AppIcons.iconArrowDown)
                                   ],
@@ -159,12 +167,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 context: context,
                                 listData: listTransactionType,
                                 valueType: 'select_type'.tr(),
-                                currentValue: transactionType,
+                                currentValue: _transactionTypeNotifier.value,
                                 onValueSelected: (selectedValue) {
-                                  // Reset the value of variable "transactionType" to the selected value
-                                  setState(() {
-                                    transactionType = selectedValue;
-                                  });
+                                  // Reset the value of "_transactionTypeNotifier" to the selected value
+                                  _transactionTypeNotifier.value = selectedValue;
                                 },
                               ),
                               child: Container(
@@ -177,9 +183,14 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      transactionType,
-                                      style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e))
+                                    ValueListenableBuilder(
+                                      valueListenable: _transactionTypeNotifier,
+                                      builder: (context, value, _) {
+                                        return Text(
+                                          _transactionTypeNotifier.value,
+                                          style: AppStyles.textNormalBlack.copyWith(color: const Color(0xff2e2e2e)),
+                                        );
+                                      },
                                     ),
                                     SvgPicture.asset(AppIcons.iconArrowDown)
                                   ],
@@ -360,5 +371,13 @@ class _TransactionsPageState extends State<TransactionsPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _monthNotifier.dispose();
+    _yearNotifier.dispose();
+    _transactionTypeNotifier.dispose();
+    super.dispose();
   }
 }

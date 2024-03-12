@@ -56,6 +56,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: ThemeData(
+          // useMaterial3: true,     // Sử dụng Material 3
           fontFamily: 'Mulish',  // Set the default font family for the entire app.
           primarySwatch: Colors.blue,
           // Disable default Widget splash effect in Flutter.
