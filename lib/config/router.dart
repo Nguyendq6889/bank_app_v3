@@ -1,3 +1,5 @@
+import 'package:bank_app_v3/features/authentication/cubits/auth_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../modules/dashboard/page/dashboard_page.dart';
@@ -11,7 +13,7 @@ import '../modules/user_info/pages/user_info_page.dart';
 class RouteName {
   static const String splashScreen = '/SplashScreen';
   static const String signInPage = '/SignInPage';
-  static const String dashboardPage = '/DashboardPage';
+  static const String dashboardPage = '/';
   // static const String homePage = '/HomePage';
   // static const String transactionsPage = '/TransactionsPage';
   static const String qRCodeScanPage = '/QRCodeScanPage';
@@ -24,16 +26,19 @@ class RouteName {
 
   static const publicRoutes = [
     // Những trang không cần đăng nhập.
-    splashScreen,
+    // splashScreen,
     signInPage,
+    // dashboardPage,
   ];
 }
 
-final router = GoRoute(
-  path: '/SplashScreen',
+final GoRouter router = GoRouter(
   redirect: (context, state) {
     // Nếu người dùng vào những trang mà không cần đăng nhập thì return null.
     if (RouteName.publicRoutes.contains(state.fullPath)) {
+      return null;
+    }
+    if(context.read<AuthCubit>().state is AuthenticatedState) {
       return null;
     }
     // Nếu người dùng vào những trang phải đăng nhập mà chưa đăng nhập thì chuyển đến '/SignInPage'.
