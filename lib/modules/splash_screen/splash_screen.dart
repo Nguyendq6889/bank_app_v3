@@ -17,11 +17,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive); // Hide the default device navigation bar.
 
     // Delay the navigation to the SignInPage by 2 seconds.
-    Future.delayed(const Duration(seconds: 2), () {
+    // Future.delayed(const Duration(seconds: 2), () {
       // After 2 seconds, navigate to the SignInPage and replace the current SplashScreen.
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const SignInPage()));
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const SignInPage()));
       // Navigator.pushReplacementNamed(context, 'SignInPage');
-    });
+    // });
     super.initState();
   }
 

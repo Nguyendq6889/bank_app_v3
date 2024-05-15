@@ -29,6 +29,7 @@ class NewsCubit extends Cubit<NewsState> {
         emit(SuccessfulNewsState(_listNews));
       } else {
         if(response.listNews != null) {
+          // if(response.listNews!.length < _pageSize) finishLoadMore = true;
           // final listA = response.listNews!;
           // _listNews = response.listNews! + listA;
           _listNews = response.listNews!;

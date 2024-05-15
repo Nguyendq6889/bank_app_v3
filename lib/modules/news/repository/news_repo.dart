@@ -1,10 +1,12 @@
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import '../../../config/dio_config.dart';
 import '../models/news_model.dart';
 
 class NewsRepo {
   final _dio = Dio();
+  final dioConfig = DioConfig();
 
   Future<ListNewsModel> getListNews(int page) async {
     String url = 'https://jsonplaceholder.typicode.com/users/$page/posts';
@@ -20,4 +22,9 @@ class NewsRepo {
       throw 'Something went wrong code ${response.statusCode}';
     }
   }
+
+  // Future<ListNewsModel> getListNews(int page) async {
+  //   final String url = 'users/$page/posts';
+  //   return await dioConfig.get<ListNewsModel>(url, 'token', (data) => ListNewsModel.fromJson(data));
+  // }
 }

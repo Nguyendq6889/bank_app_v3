@@ -40,29 +40,28 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; // Retrieve the screen size information of the device
     return BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if(state is AuthenticatedState) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.go(RouteName.dashboardPage);
-              });
-            }
-            if(state is SuccessfulSignInState) {
-              context.loaderOverlay.hide();
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.read<AuthCubit>().authentication();
-              });
-            }
-          },
-          child: BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        if(state is InProgressSignInState) {
-          context.loaderOverlay.show();     // Show loading effect
+      listener: (context, state) {
+        if (state is AuthenticatedState) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.go(RouteName.dashboardPage);
+          });
         }
-        if(state is SuccessfulSignInState) {
+        if (state is SuccessfulSignInState) {
+          context.loaderOverlay.hide();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.read<AuthCubit>().authentication();
+          });
+        }
+      },
+      child: BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+        if (state is InProgressSignInState) {
+          context.loaderOverlay.show(); // Show loading effect
+        }
+        if (state is SuccessfulSignInState) {
           context.loaderOverlay.hide();
           // context.read<AuthCubit>().authentication();
         }
-        if(state is FailureSignInState) {
+        if (state is FailureSignInState) {
           context.loaderOverlay.hide();
           WidgetsBinding.instance.addPostFrameCallback((_) {
             CommonWidget.dialogBuilder(context, state.message);
@@ -81,8 +80,10 @@ class _SignInPageState extends State<SignInPage> {
             locale: context.locale,
             child: SingleChildScrollView(
               child: Container(
-                width: size.width, // Set the width of the Container equal to the width of the device
-                height: size.height, // Set the height of the Container equal to the height of the device
+                width: size.width,
+                // Set the width of the Container equal to the width of the device
+                height: size.height,
+                // Set the height of the Container equal to the height of the device
                 color: const Color(0xff1F69F6),
                 child: Stack(
                   children: [
@@ -91,20 +92,23 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         Expanded(
                             child: Container(
-                              decoration: const BoxDecoration(
-                                gradient: AppColors.colorAppBar,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  SizedBox(width: double.infinity, height: MediaQuery.of(context).padding.top),
-                                  /// Language selection button start
-                                  const MultiLanguageWidget(page: 'SignIn'),
-                                  /// Language selection button end
-                                ],
-                              ),
-                            )
-                        ),
+                          decoration: const BoxDecoration(
+                            gradient: AppColors.colorAppBar,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                  width: double.infinity,
+                                  height: MediaQuery.of(context).padding.top),
+
+                              /// Language selection button start
+                              const MultiLanguageWidget(page: 'SignIn'),
+
+                              /// Language selection button end
+                            ],
+                          ),
+                        )),
                         Container(
                             width: size.width,
                             height: size.height * 60.837 / 100,
@@ -113,26 +117,29 @@ class _SignInPageState extends State<SignInPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16)
-                              ),
+                                  topRight: Radius.circular(16)),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 /// Features section start
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     _feature('QR Pay', AppIcons.iconQRPay),
                                     _feature('ATM', AppIcons.iconATM),
-                                    _feature('book_tickets'.tr(), AppIcons.iconTicket),
-                                    _feature('support'.tr(), AppIcons.iconSupport),
+                                    _feature(
+                                        'book_tickets'.tr(), AppIcons.iconTicket),
+                                    _feature(
+                                        'support'.tr(), AppIcons.iconSupport),
                                   ],
                                 ),
+
                                 /// Features section end
                               ],
-                            )
-                        ),
+                            )),
+
                         /// Sign up account section start
                         Container(
                           width: size.width,
@@ -144,7 +151,8 @@ class _SignInPageState extends State<SignInPage> {
                               // print("Đăng ký tạo tài khoản");
                             },
                             child: Text(
-                              'sign_up'.tr(),  // Use the tr() method to enable translation feature.
+                              'sign_up'.tr(),
+                              // Use the tr() method to enable translation feature.
                               textAlign: TextAlign.center,
                               style: AppStyles.textButtonWhite.copyWith(
                                 height: 1.5,
@@ -155,9 +163,11 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                         )
+
                         /// Sign up account section end
                       ],
                     ),
+
                     /// Login form start
                     Positioned(
                       left: 16,
@@ -203,23 +213,31 @@ class _SignInPageState extends State<SignInPage> {
                                           style: AppStyles.textNormalBlack,
                                           cursorColor: AppColors.primaryColor,
                                           decoration: InputDecoration(
-                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 16),
                                             isCollapsed: true,
                                             border: InputBorder.none,
-                                            hintText: '${'username'.tr()} / ${'phone_number'.tr()}',  // Use the tr() method to enable translation feature.
+                                            hintText:
+                                                '${'username'.tr()} / ${'phone_number'.tr()}',
+                                            // Use the tr() method to enable translation feature.
                                             hintStyle: const TextStyle(
-                                                fontSize: 14, color: Color(0xffA1A1A1), fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: 14,
+                                                color: Color(0xffA1A1A1),
+                                                fontWeight: FontWeight.w400),
                                           ),
                                           onChanged: (value) {
                                             // print(_userNameController.text.trim());
                                           },
                                           onTapOutside: (PointerDownEvent event) {
-                                            FocusManager.instance.primaryFocus?.unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
                                           },
                                           validator: (value) {
-                                            if(value == null || value.trim().isEmpty) {
-                                              CommonWidget.dialogBuilder(context, 'Vui lòng nhập ${'username'.tr()} / ${'phone_number'.tr()}');
+                                            if (value == null ||
+                                                value.trim().isEmpty) {
+                                              CommonWidget.dialogBuilder(context,
+                                                  'Vui lòng nhập ${'username'.tr()} / ${'phone_number'.tr()}');
                                               return;
                                             }
                                             return;
@@ -230,7 +248,8 @@ class _SignInPageState extends State<SignInPage> {
                                     Container(
                                       width: double.infinity,
                                       height: 44,
-                                      margin: EdgeInsets.only(bottom: size.height * 2.5 / 100),
+                                      margin: EdgeInsets.only(
+                                          bottom: size.height * 2.5 / 100),
                                       decoration: BoxDecoration(
                                         color: const Color(0xfff7f6f6),
                                         borderRadius: BorderRadius.circular(6),
@@ -241,23 +260,29 @@ class _SignInPageState extends State<SignInPage> {
                                           style: AppStyles.textNormalBlack,
                                           cursorColor: AppColors.primaryColor,
                                           decoration: InputDecoration(
-                                              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16),
                                               isCollapsed: true,
                                               border: InputBorder.none,
-                                              hintText: 'password'.tr(),  // Use the tr() method to enable translation feature.
+                                              hintText: 'password'.tr(),
+                                              // Use the tr() method to enable translation feature.
                                               hintStyle: const TextStyle(
-                                                  fontSize: 14, color: Color(0xffA1A1A1), fontWeight: FontWeight.w400
-                                              )
-                                          ),
+                                                  fontSize: 14,
+                                                  color: Color(0xffA1A1A1),
+                                                  fontWeight: FontWeight.w400)),
                                           onChanged: (value) {
                                             // print(_passwordController.text.trim());
                                           },
                                           onTapOutside: (PointerDownEvent event) {
-                                            FocusManager.instance.primaryFocus?.unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
                                           },
                                           validator: (value) {
-                                            if(value == null || value.trim().isEmpty) {
-                                              CommonWidget.dialogBuilder(context, 'Vui lòng nhập ${'password'.tr()}');
+                                            if (value == null ||
+                                                value.trim().isEmpty) {
+                                              CommonWidget.dialogBuilder(context,
+                                                  'Vui lòng nhập ${'password'.tr()}');
                                               return;
                                             }
                                             return;
@@ -267,20 +292,26 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                     BiometricsAuthWidget(
                                       onChanged: (bool authenticated) {
-                                        if(authenticated) _goToDashboardPage(context);
+                                        if (authenticated)
+                                          _goToDashboardPage(context);
                                       },
                                     ),
                                     SizedBox(height: size.height * 2.5 / 100),
                                     // MainButtonWidget in lib/widgets/main_button_widget.dart file.
-                                    MainButtonWidget(text: 'sign_in'.tr(), onTap: () => _goToDashboardPage(context)),
+                                    MainButtonWidget(
+                                        text: 'sign_in'.tr(),
+                                        onTap: () => _goToDashboardPage(context)),
                                     SizedBox(height: size.height * 2.5 / 100),
                                     GestureDetector(
                                       onTap: () {
                                         // print('Quên mật khẩu?');
                                       },
                                       child: Text(
-                                        'forgot_password'.tr(),  // Use the tr() method to enable translation feature.
-                                        style: AppStyles.textButtonBlue.copyWith(height: 1.5, decoration: TextDecoration.underline),
+                                        'forgot_password'.tr(),
+                                        // Use the tr() method to enable translation feature.
+                                        style: AppStyles.textButtonBlue.copyWith(
+                                            height: 1.5,
+                                            decoration: TextDecoration.underline),
                                       ),
                                     ),
                                   ],
@@ -291,6 +322,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     )
+
                     /// Login form end
                   ],
                 ),
@@ -298,9 +330,8 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         );
-      }
-    )
-    );
+      },
+    ));
   }
 
   Widget _feature(String title, String icon) {
@@ -308,17 +339,14 @@ class _SignInPageState extends State<SignInPage> {
       children: [
         SvgPicture.asset(icon),
         const SizedBox(height: 12),
-        Text(
-          title,
-          style: AppStyles.textFeatures.copyWith(fontSize: 13)
-        )
+        Text(title, style: AppStyles.textFeatures.copyWith(fontSize: 13))
       ],
     );
   }
 
   void _goToDashboardPage(BuildContext context) {
-    if(_formKey.currentState!.validate()) {
-      if(_userNameController.text.trim().isNotEmpty && _passwordController.text.trim().isNotEmpty) {
+    if (_formKey.currentState!.validate()) {
+      if (_userNameController.text.trim().isNotEmpty && _passwordController.text.trim().isNotEmpty) {
         context.read<AuthCubit>().signIn(
           username: _userNameController.text.trim(),
           password: _passwordController.text.trim(),
@@ -329,8 +357,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   void dispose() {
-    _userNameController.dispose();    // Dispose of the _userNameController to release resources
-    _passwordController.dispose();    // Dispose of the _passwordController to release resources
+    _userNameController.dispose(); // Dispose of the _userNameController to release resources
+    _passwordController.dispose(); // Dispose of the _passwordController to release resources
     super.dispose();
   }
 }

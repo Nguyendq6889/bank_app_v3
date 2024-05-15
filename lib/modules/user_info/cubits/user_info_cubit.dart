@@ -13,7 +13,11 @@ class UserInfoCubit extends Cubit<UserInfoState> {
     try {
       final response = await _userInfoRepo.getUserInfo();
       await Future.delayed(const Duration(seconds: 1));
-      emit(SuccessfulUserInfoState(response));
+      if(response != null) {
+        emit(SuccessfulUserInfoState(response));
+      } else {
+        emit(ErrorUserInfoState('Đã có lỗi xảy ra. Vui lòng thử lại sau!'));
+      }
     } catch(error, stackTrace) {
       // if (kDebugMode) {
       //   print(error);
