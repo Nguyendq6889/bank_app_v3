@@ -6,6 +6,10 @@ class UserInfoRepo {
 
   Future<UserInfoModel?> getUserInfo() async {
     const String url = 'users/1';
-    return await dioConfig.get<UserInfoModel>(url, 'token', (data) => UserInfoModel.fromJson(data));
+    return await dioConfig.request<UserInfoModel>(
+      url: url,
+      method: 'GET',
+      fromJson: (data) => UserInfoModel.fromJson(data),
+    );
   }
 }
