@@ -25,6 +25,10 @@ class NewsRepo {
 
   // Future<ListNewsModel> getListNews(int page) async {
   //   final String url = 'users/$page/posts';
-  //   return await dioConfig.get<ListNewsModel>(url, 'token', (data) => ListNewsModel.fromJson(data));
+  //   return await dioConfig.request<ListNewsModel>(
+  //     url: url,
+  //     method: 'GET',
+  //     fromJson: (data) => ListNewsModel.fromJson(data),
+  //   );
   // }
 }
