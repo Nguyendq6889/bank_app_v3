@@ -31,8 +31,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   void initState() {
-    _userNameController.text = "kminchelle";
-    _passwordController.text = "0lelplR";
+    _userNameController.text = "emilys";
+    _passwordController.text = "emilyspass";
     super.initState();
   }
 

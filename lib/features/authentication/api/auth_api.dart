@@ -8,7 +8,7 @@ class AuthApi {
   Future<ResponseSignInModel> signIn(String username, String password) async {
     try {
       final response = await dio.post(
-        'https://dummyjson.com/auth/login',
+        'https://dummyjson.com/user/login',
         data: {
           "username": username,
           "password": password,
