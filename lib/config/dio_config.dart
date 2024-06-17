@@ -1,13 +1,18 @@
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+// import '../models/teacher/login_gateway/login_gateway_result_model.dart';
+// import '../shared/preference/share_pref_service.dart';
+// import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: 'https://jsonplaceholder.typicode.com/',
   connectTimeout: const Duration(seconds: 10),
   receiveTimeout: const Duration(seconds: 10),
   // sendTimeout: const Duration(seconds: 5),
-));
+))..interceptors.add(PrettyDioLogger(responseBody: false))
+..interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
 
 class DioConfig {
   DioConfig() {
