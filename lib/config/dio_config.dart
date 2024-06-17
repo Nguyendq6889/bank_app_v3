@@ -2,9 +2,6 @@ import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-// import '../models/teacher/login_gateway/login_gateway_result_model.dart';
-// import '../shared/preference/share_pref_service.dart';
-// import 'package:dio_logging_interceptor/dio_logging_interceptor.dart';
 
 final dio = Dio(BaseOptions(
   baseUrl: 'https://jsonplaceholder.typicode.com/',
@@ -16,11 +13,6 @@ final dio = Dio(BaseOptions(
 
 class DioConfig {
   DioConfig() {
-    if (kDebugMode) {     // just using it in debug mode.
-      // dio.interceptors.add(DioLoggingInterceptor(level: Level.body, compact: false));
-      dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));      // add the interceptor.
-    }
-
     // dio.interceptors.add(QueuedInterceptorsWrapper(
     //   onRequest: (options, handler) async {
     //     final sharedPref = await SharedPreferencesService.instance;
