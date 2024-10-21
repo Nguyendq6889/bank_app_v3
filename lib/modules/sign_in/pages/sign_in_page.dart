@@ -292,8 +292,9 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                     BiometricsAuthWidget(
                                       onChanged: (bool authenticated) {
-                                        if (authenticated)
+                                        if (authenticated) {
                                           _goToDashboardPage(context);
+                                        }
                                       },
                                     ),
                                     SizedBox(height: size.height * 2.5 / 100),

@@ -8,11 +8,11 @@ class ListNewsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if(listNews != null) {
-      _data["listNews"] = listNews?.map((e) => e.toJson()).toList();
+      data["listNews"] = listNews?.map((e) => e.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 
   ListNewsModel copyWith({

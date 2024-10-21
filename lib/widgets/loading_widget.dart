@@ -75,7 +75,7 @@ class _LoadingWidget2State extends State<LoadingAnimationWidget> with TickerProv
         RotationTransition(
           turns: animation1,
           child: CustomPaint(
-            painter: Arc1Painter(Color(0xff216BF8)),
+            painter: Arc1Painter(const Color(0xff216BF8)),
             child: SizedBox(
               width: loadingSize,
               height: loadingSize,
@@ -87,7 +87,7 @@ class _LoadingWidget2State extends State<LoadingAnimationWidget> with TickerProv
           child: RotationTransition(
             turns: animation2,
             child: CustomPaint(
-              painter: Arc2Painter(Color(0xff89B9F6)),
+              painter: Arc2Painter(const Color(0xff89B9F6)),
               child: SizedBox(
                 width: loadingSize,
                 height: loadingSize,

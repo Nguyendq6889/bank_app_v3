@@ -1,5 +1,4 @@
 import 'package:bank_app_v3/features/authentication/api/auth_api.dart';
-import '../../../modules/sign_in/model/response_sign_in_model.dart';
 import '../../../utils/local_data.dart';
 
 class AuthRepo {
