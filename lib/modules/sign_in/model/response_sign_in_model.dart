@@ -1,5 +1,6 @@
-
 class ResponseSignInModel {
+  String? accessToken;
+  String? refreshToken;
   int? id;
   String? username;
   String? email;
@@ -7,11 +8,12 @@ class ResponseSignInModel {
   String? lastName;
   String? gender;
   String? image;
-  String? token;
 
-  ResponseSignInModel({this.id, this.username, this.email, this.firstName, this.lastName, this.gender, this.image, this.token});
+  ResponseSignInModel({this.accessToken, this.refreshToken, this.id, this.username, this.email, this.firstName, this.lastName, this.gender, this.image});
 
   ResponseSignInModel.fromJson(Map<String, dynamic> json) {
+    accessToken = json["accessToken"];
+    refreshToken = json["refreshToken"];
     id = json["id"];
     username = json["username"];
     email = json["email"];
@@ -19,19 +21,19 @@ class ResponseSignInModel {
     lastName = json["lastName"];
     gender = json["gender"];
     image = json["image"];
-    token = json["token"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["username"] = username;
-    _data["email"] = email;
-    _data["firstName"] = firstName;
-    _data["lastName"] = lastName;
-    _data["gender"] = gender;
-    _data["image"] = image;
-    _data["token"] = token;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["accessToken"] = accessToken;
+    data["refreshToken"] = refreshToken;
+    data["id"] = id;
+    data["username"] = username;
+    data["email"] = email;
+    data["firstName"] = firstName;
+    data["lastName"] = lastName;
+    data["gender"] = gender;
+    data["image"] = image;
+    return data;
   }
 }

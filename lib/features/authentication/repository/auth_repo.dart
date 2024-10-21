@@ -9,8 +9,8 @@ class AuthRepo {
 
   Future<bool> signIn(String username, String password) async {
     final response = await authApi.signIn(username, password);
-    if(response.token != null) {
-      await localData.saveToken(response.token!);
+    if(response.accessToken != null) {
+      await localData.saveToken(response.accessToken!);
       return true;
     }
     return false;
