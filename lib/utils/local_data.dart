@@ -15,4 +15,16 @@ class LocalData {
   Future<bool> deleteToken() async {
     return await sharedPre.remove('token');
   }
+
+  Future<void> saveRefreshToken(String refreshToken) async {
+    await sharedPre.setString('refreshToken', refreshToken);
+  }
+
+  String? getRefreshToken() {
+    return sharedPre.getString('refreshToken');
+  }
+
+  Future<bool> deleteRefreshToken() async {
+    return await sharedPre.remove('refreshToken');
+  }
 }

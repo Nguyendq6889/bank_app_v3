@@ -8,11 +8,23 @@ class AuthRepo {
 
   Future<bool> signIn(String username, String password) async {
     final response = await authApi.signIn(username, password);
-    if(response.accessToken != null) {
+    if(response != null && response.accessToken != null) {
       await localData.saveToken(response.accessToken!);
+      await localData.saveRefreshToken(response.refreshToken ?? '');
       return true;
     }
     return false;
+  }
+
+  Future<String?> refreshToken() async {
+    final refreshToken = localData.getRefreshToken();
+    final response = await authApi.refreshToken(refreshToken ?? '');
+    if(response != null && response.accessToken != null) {
+      await localData.saveToken(response.accessToken!);
+      await localData.saveRefreshToken(response.refreshToken ?? '');
+      return response.accessToken;
+    }
+    return null;
   }
 
   bool getToken() {
@@ -25,6 +37,7 @@ class AuthRepo {
 
   Future<bool> signOut() async {
     final isDeleteToken = await localData.deleteToken();
-    return isDeleteToken;
+    final isDeleteRefreshToken = await localData.deleteRefreshToken();
+    return isDeleteToken && isDeleteRefreshToken;
   }
 }
