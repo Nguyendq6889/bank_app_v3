@@ -1,91 +1,212 @@
 class UserInfoModel {
   int? id;
-  String? name;
-  String? username;
+  String? firstName;
+  String? lastName;
+  String? maidenName;
+  int? age;
+  String? gender;
   String? email;
-  Address? address;
   String? phone;
-  String? website;
+  String? username;
+  String? password;
+  String? birthDate;
+  String? image;
+  String? bloodGroup;
+  double? height;
+  double? weight;
+  String? eyeColor;
+  Hair? hair;
+  String? ip;
+  Address? address;
+  String? macAddress;
+  String? university;
+  Bank? bank;
   Company? company;
+  String? ein;
+  String? ssn;
+  String? userAgent;
+  Crypto? crypto;
+  String? role;
 
   UserInfoModel(
       {this.id,
-        this.name,
-        this.username,
+        this.firstName,
+        this.lastName,
+        this.maidenName,
+        this.age,
+        this.gender,
         this.email,
-        this.address,
         this.phone,
-        this.website,
-        this.company});
+        this.username,
+        this.password,
+        this.birthDate,
+        this.image,
+        this.bloodGroup,
+        this.height,
+        this.weight,
+        this.eyeColor,
+        this.hair,
+        this.ip,
+        this.address,
+        this.macAddress,
+        this.university,
+        this.bank,
+        this.company,
+        this.ein,
+        this.ssn,
+        this.userAgent,
+        this.crypto,
+        this.role});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    username = json['username'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    maidenName = json['maidenName'];
+    age = json['age'];
+    gender = json['gender'];
     email = json['email'];
+    phone = json['phone'];
+    username = json['username'];
+    password = json['password'];
+    birthDate = json['birthDate'];
+    image = json['image'];
+    bloodGroup = json['bloodGroup'];
+    height = json['height'];
+    weight = json['weight'];
+    eyeColor = json['eyeColor'];
+    hair = json['hair'] != null ? Hair.fromJson(json['hair']) : null;
+    ip = json['ip'];
     address =
     json['address'] != null ? Address.fromJson(json['address']) : null;
-    phone = json['phone'];
-    website = json['website'];
+    macAddress = json['macAddress'];
+    university = json['university'];
+    bank = json['bank'] != null ? Bank.fromJson(json['bank']) : null;
     company =
     json['company'] != null ? Company.fromJson(json['company']) : null;
+    ein = json['ein'];
+    ssn = json['ssn'];
+    userAgent = json['userAgent'];
+    crypto =
+    json['crypto'] != null ? Crypto.fromJson(json['crypto']) : null;
+    role = json['role'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['name'] = name;
-    data['username'] = username;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['maidenName'] = maidenName;
+    data['age'] = age;
+    data['gender'] = gender;
     data['email'] = email;
+    data['phone'] = phone;
+    data['username'] = username;
+    data['password'] = password;
+    data['birthDate'] = birthDate;
+    data['image'] = image;
+    data['bloodGroup'] = bloodGroup;
+    data['height'] = height;
+    data['weight'] = weight;
+    data['eyeColor'] = eyeColor;
+    if (hair != null) {
+      data['hair'] = hair!.toJson();
+    }
+    data['ip'] = ip;
     if (address != null) {
       data['address'] = address!.toJson();
     }
-    data['phone'] = phone;
-    data['website'] = website;
+    data['macAddress'] = macAddress;
+    data['university'] = university;
+    if (bank != null) {
+      data['bank'] = bank!.toJson();
+    }
     if (company != null) {
       data['company'] = company!.toJson();
     }
+    data['ein'] = ein;
+    data['ssn'] = ssn;
+    data['userAgent'] = userAgent;
+    if (crypto != null) {
+      data['crypto'] = crypto!.toJson();
+    }
+    data['role'] = role;
+    return data;
+  }
+}
+
+class Hair {
+  String? color;
+  String? type;
+
+  Hair({this.color, this.type});
+
+  Hair.fromJson(Map<String, dynamic> json) {
+    color = json['color'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['color'] = color;
+    data['type'] = type;
     return data;
   }
 }
 
 class Address {
-  String? street;
-  String? suite;
+  String? address;
   String? city;
-  String? zipcode;
-  Geo? geo;
+  String? state;
+  String? stateCode;
+  String? postalCode;
+  Coordinates? coordinates;
+  String? country;
 
-  Address({this.street, this.suite, this.city, this.zipcode, this.geo});
+  Address(
+      {this.address,
+        this.city,
+        this.state,
+        this.stateCode,
+        this.postalCode,
+        this.coordinates,
+        this.country});
 
   Address.fromJson(Map<String, dynamic> json) {
-    street = json['street'];
-    suite = json['suite'];
+    address = json['address'];
     city = json['city'];
-    zipcode = json['zipcode'];
-    geo = json['geo'] != null ? Geo.fromJson(json['geo']) : null;
+    state = json['state'];
+    stateCode = json['stateCode'];
+    postalCode = json['postalCode'];
+    coordinates = json['coordinates'] != null
+        ? Coordinates.fromJson(json['coordinates'])
+        : null;
+    country = json['country'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['street'] = street;
-    data['suite'] = suite;
+    data['address'] = address;
     data['city'] = city;
-    data['zipcode'] = zipcode;
-    if (geo != null) {
-      data['geo'] = geo!.toJson();
+    data['state'] = state;
+    data['stateCode'] = stateCode;
+    data['postalCode'] = postalCode;
+    if (coordinates != null) {
+      data['coordinates'] = coordinates!.toJson();
     }
+    data['country'] = country;
     return data;
   }
 }
 
-class Geo {
-  String? lat;
-  String? lng;
+class Coordinates {
+  double? lat;
+  double? lng;
 
-  Geo({this.lat, this.lng});
+  Coordinates({this.lat, this.lng});
 
-  Geo.fromJson(Map<String, dynamic> json) {
+  Coordinates.fromJson(Map<String, dynamic> json) {
     lat = json['lat'];
     lng = json['lng'];
   }
@@ -98,24 +219,85 @@ class Geo {
   }
 }
 
-class Company {
-  String? name;
-  String? catchPhrase;
-  String? bs;
+class Bank {
+  String? cardExpire;
+  String? cardNumber;
+  String? cardType;
+  String? currency;
+  String? iban;
 
-  Company({this.name, this.catchPhrase, this.bs});
+  Bank(
+      {this.cardExpire,
+        this.cardNumber,
+        this.cardType,
+        this.currency,
+        this.iban});
 
-  Company.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    catchPhrase = json['catchPhrase'];
-    bs = json['bs'];
+  Bank.fromJson(Map<String, dynamic> json) {
+    cardExpire = json['cardExpire'];
+    cardNumber = json['cardNumber'];
+    cardType = json['cardType'];
+    currency = json['currency'];
+    iban = json['iban'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['cardExpire'] = cardExpire;
+    data['cardNumber'] = cardNumber;
+    data['cardType'] = cardType;
+    data['currency'] = currency;
+    data['iban'] = iban;
+    return data;
+  }
+}
+
+class Company {
+  String? department;
+  String? name;
+  String? title;
+  Address? address;
+
+  Company({this.department, this.name, this.title, this.address});
+
+  Company.fromJson(Map<String, dynamic> json) {
+    department = json['department'];
+    name = json['name'];
+    title = json['title'];
+    address =
+    json['address'] != null ? Address.fromJson(json['address']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['department'] = department;
     data['name'] = name;
-    data['catchPhrase'] = catchPhrase;
-    data['bs'] = bs;
+    data['title'] = title;
+    if (address != null) {
+      data['address'] = address!.toJson();
+    }
+    return data;
+  }
+}
+
+class Crypto {
+  String? coin;
+  String? wallet;
+  String? network;
+
+  Crypto({this.coin, this.wallet, this.network});
+
+  Crypto.fromJson(Map<String, dynamic> json) {
+    coin = json['coin'];
+    wallet = json['wallet'];
+    network = json['network'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['coin'] = coin;
+    data['wallet'] = wallet;
+    data['network'] = network;
     return data;
   }
 }

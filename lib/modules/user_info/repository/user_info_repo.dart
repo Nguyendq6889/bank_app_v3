@@ -5,7 +5,7 @@ class UserInfoRepo {
   final dioConfig = DioConfig();
 
   Future<UserInfoModel?> getUserInfo() async {
-    const String url = 'users/1';
+    const String url = 'auth/me';
     return await dioConfig.request<UserInfoModel>(
       url: url,
       method: 'GET',

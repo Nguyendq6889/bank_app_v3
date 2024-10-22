@@ -119,8 +119,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               children: [
-                _buildRow('${'full_name'.tr()} :', data.name ?? ''),
-                _buildRow('${'gender'.tr()} :', 'Male'),
+                _buildRow('${'full_name'.tr()} :', '${data.firstName ?? ''} ${data.lastName ?? ''}'),
+                _buildRow('${'gender'.tr()} :', data.gender ?? ''),
                 _buildRow('${'date_of_birth'.tr()} :', '01/01/1990'),
                 _buildRow('Email :', data.email ?? ''),
                 _buildRow('${'username'.tr()} :', data.username ?? ''),
@@ -128,7 +128,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 _buildRow('${'id'.tr()} :', data.id != null ? data.id.toString() : ''),
                 _buildRow(
                   '${'address'.tr()} :',
-                  '${data.address?.suite ?? ''}, ${data.address?.street ?? ''}, ${data.address?.city ?? ''}',
+                  '${data.address?.address ?? ''}, ${data.address?.city ?? ''}, ${data.address?.state ?? ''}',
                   end: true,
                 ),
               ],
