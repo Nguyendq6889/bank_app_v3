@@ -1,5 +1,6 @@
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +13,7 @@ final dio = Dio(BaseOptions(
   connectTimeout: const Duration(seconds: 10),
   receiveTimeout: const Duration(seconds: 10),
   // sendTimeout: const Duration(seconds: 5),
-))..interceptors.add(PrettyDioLogger(responseBody: false))
+))..interceptors.add(PrettyDioLogger(responseBody: false, enabled: kDebugMode))
 ..interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
 
 class DioConfig {
