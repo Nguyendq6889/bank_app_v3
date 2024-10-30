@@ -13,7 +13,6 @@ import '../../../app_assets/app_styles.dart';
 import '../../../config/router.dart';
 import '../../../features/authentication/cubits/auth_cubit.dart';
 import '../../../features/multi_language/multi_language_widget.dart';
-import '../../../widgets/common_widget.dart';
 import '../../user_info/cubits/user_info_cubit.dart';
 import '../../user_info/pages/user_info_page.dart';
 

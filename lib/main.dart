@@ -47,8 +47,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(     // This widget is from the loader_overlay package to create loading effects for the app.
-    overlayColor: Colors.black.withOpacity(0.3),
-      useDefaultLoading: false,
+      overlayColor: Colors.black.withOpacity(0.3),
       overlayWidgetBuilder: (progress) {
         return const LoadingWidget();     // LoadingWidget in lib/widgets/loading_widget.dart file.
       },
