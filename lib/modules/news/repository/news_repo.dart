@@ -2,11 +2,13 @@ import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../../../config/dio_config.dart';
+import '../../../utils/api_config.dart';
 import '../models/news_model.dart';
 
 class NewsRepo {
   final _dio = Dio();
   final dioConfig = DioConfig();
+  final ApiConfig _api = ApiConfig();
 
   Future<ListNewsModel> getListNews(int page) async {
     String url = 'https://jsonplaceholder.typicode.com/users/$page/posts';
